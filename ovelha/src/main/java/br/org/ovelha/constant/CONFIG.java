@@ -1,0 +1,11 @@
+package br.org.ovelha.constant;
+
+public final class CONFIG {
+
+	private CONFIG() {
+	}
+	
+	public static final String USR = "392C04F05E7AD798DD462AA761750F552D903C03B9DE62CA00025AF0FBCFA5BB";
+	public static final String PWD = "507BF7B880690C438767929BE8C6FE14D77B4678D3CE04A2BD0A84EFEE352DCD";
+	
+}

@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/pages/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form>
+
+			<p:dataTable id="list" var="bean" value="#{filhoListMB.resultList}" paginator="true" rows="10" paginatorPosition="bottom" >
+				<f:facet name="header">Lista de filhos de discípulos do Ministério de Casais</f:facet>
+
+				<p:column style="width:8%;" sortBy="#{bean.nome}">
+					<f:facet name="header">Nome</f:facet>
+					<h:outputText value="#{bean.nome}" />
+				</p:column>
+
+				<p:column style="width:5%;" sortBy="#{bean.dataAniversario}">
+					<f:facet name="header">Aniversário</f:facet>
+					<h:outputText value="#{bean.dataAniversario}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>					
+				</p:column>
+				
+				<p:column style="width:5%;" sortBy="#{bean.nomePais}">
+					<f:facet name="header">Responsáveis</f:facet>
+					<h:outputText value="#{bean.nomePais}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

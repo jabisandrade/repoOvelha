@@ -1,0 +1,135 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/pages/private/template/main.xhtml">
+	<ui:define name="body">
+		<h:form prependId="false">
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['botao.salvar']}"
+						action="#{emailEditMB.insert}"
+						rendered="#{!emailEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['botao.salvar']}"
+						action="#{emailEditMB.update}"
+						rendered="#{emailEditMB.updateMode}" ajax="false" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<p:fieldset legend="Configurações de envio de email"
+				toggleable="true" toggleSpeed="500">
+
+				<h:panelGrid id="fieldsConfigEmail" columns="6">
+
+					<h:outputLabel value="Servidor SMTP: " for="servidor"
+						styleClass="text-input" />
+					<h:inputText id="servidor" value="#{emailEditMB.bean.servidor}"
+						title="Endereço do servidor de SMTP para envio de emails"
+						required="true" />
+					<p:message for="servidor" />
+
+					<h:outputLabel value="Porta de Comunicação: " for="porta"
+						styleClass="text-input" />
+					<h:inputText id="porta" value="#{emailEditMB.bean.porta}"
+						title="Porta de acesso ao servidor de SMTP para envio de emails"
+						required="true" />
+					<p:message for="porta" />
+
+					<h:outputLabel value="Email da conta: " for="email"
+						styleClass="text-input" />
+					<h:inputText id="email" value="#{emailEditMB.bean.usuario}"
+						title="Email da conta criada no provedor que será usada para o envio de emails"
+						required="true" />
+					<p:message for="email" />
+
+					<h:outputLabel value="Senha da conta: " for="senha"
+						styleClass="text-input" />
+					<h:inputText id="senha" value="#{emailEditMB.bean.senha}"
+						title="Senha da conta criada no provedor que será usada para o envio de emails"
+						required="true" />
+					<p:message for="senha" />
+
+					<h:outputLabel value="Destinatário(s) Default: " for="defaultDest"
+						styleClass="text-input" />
+					<h:inputText id="defaultDest" value="#{emailEditMB.bean.destinatario}"
+						title="Destinatario padrao para qual serão enviados emails do sistema"
+						required="true" />
+					<p:message for="defaultDest" />					
+
+				</h:panelGrid>
+			</p:fieldset>
+
+			<br />
+			<p:fieldset legend="Periodicidade de envio de emails"
+				toggleable="true" toggleSpeed="500">
+
+				<h:outputLabel value="Segunda" for="seg" styleClass="text-input" />
+				<h:selectBooleanCheckbox id="seg" disabled="true"
+					value="#{casalEditMB.bean.marido.batizado}" />
+
+				<h:outputLabel value="Terça " for="ter" styleClass="text-input" />
+				<h:selectBooleanCheckbox id="ter" disabled="true"
+					value="#{casalEditMB.bean.marido.batizado}" />
+
+				<h:outputLabel value="Quarta " for="qua" styleClass="text-input" />
+				<h:selectBooleanCheckbox id="qua" disabled="true"
+					value="#{casalEditMB.bean.marido.batizado}" />
+
+				<h:outputLabel value="Quinta" for="qui" styleClass="text-input" />
+				<h:selectBooleanCheckbox id="qui" disabled="true"
+					value="#{casalEditMB.bean.marido.batizado}" />
+
+				<h:outputLabel value="Sexta" for="sex" styleClass="text-input" />
+				<h:selectBooleanCheckbox id="sex" disabled="true"
+					value="#{casalEditMB.bean.marido.batizado}" />
+
+				<h:outputLabel value="Sábado" for="sab" styleClass="text-input" />
+				<h:selectBooleanCheckbox id="sab" disabled="true"
+					value="#{casalEditMB.bean.marido.batizado}" />
+
+				<h:outputLabel value="Domingo" for="dom" styleClass="text-input" />
+				<h:selectBooleanCheckbox id="dom" disabled="true"
+					value="#{casalEditMB.bean.marido.batizado}" />
+
+
+
+
+			</p:fieldset>
+			<br />
+			<p:fieldset legend="Teste de Envio" toggleable="true"
+				toggleSpeed="500">
+
+				<h:panelGrid id="panelTeste" columns="1">
+					<h:outputLabel value="Email(s) do(s)  destinatario(s): "
+						for="destinatario" styleClass="text-input" />
+					<h:inputText id="destinatario"
+						value="#{emailEditMB.bean.destinatario}"
+						title="Emails dos destinatarios. Caso houverem mais de um, separar por virgulas"/>
+					<p:message for="destinatario" />
+
+					<h:outputLabel value="Assunto: " for="assunto"
+						styleClass="text-input" />
+					<h:inputText id="assunto" value="#{emailEditMB.bean.assunto}"
+						title="Assunto do email"  />
+					<p:message for="assunto" />
+
+					<h:outputLabel value="Conteudo da Mensagem: " for="mensagem"
+						styleClass="text-input" />
+					<h:inputTextarea id="mensagem" value="#{emailEditMB.bean.conteudo}"
+						title="Conteudo da mensagem"  />
+					<p:message for="mensagem" />
+
+					<p:commandButton value="Enviar" action="#{emailEditMB.enviarEmail}"
+						ajax="false" />
+				</h:panelGrid>
+
+
+
+
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

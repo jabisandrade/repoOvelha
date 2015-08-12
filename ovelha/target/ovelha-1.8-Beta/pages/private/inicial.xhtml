@@ -1,0 +1,71 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/pages/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<p:panel>
+			#{messages['main.app.entrada']}
+		</p:panel>
+		<br />
+		<h:form>
+			<p:fieldset legend="#{agendaListMB.labelLembretes}" toggleable="true"
+				collapsed="true" toggleSpeed="500">
+				<br />
+				<p:fieldset legend="Eventos" toggleable="true" collapsed="true"
+					toggleSpeed="500">
+					<p:dataTable id="listEventos" var="agenda" paginator="true" rows="5" paginatorPosition="bottom"
+						value="#{agendaListMB.lembretesAgenda}">
+						<f:facet name="header">Eventoss</f:facet>
+
+						<p:column style="width:8%;" sortBy="#{agenda.nome}">
+							<f:facet name="header">Evento</f:facet>
+							<h:outputText value="#{agenda.nome}" />
+						</p:column>
+						<p:column style="width:8%;" sortBy="#{agenda.inicio}">
+							<f:facet name="header">De</f:facet>
+							<h:outputText value="#{agenda.inicio}">
+								<f:convertDateTime pattern="dd/MM/yyyy - HH:mm:ss"
+									timeZone="GMT-03:00" />
+							</h:outputText>
+						</p:column>
+
+						<p:column style="width:8%;" sortBy="#{bean.termino}">
+							<f:facet name="header">Até</f:facet>
+							<h:outputText value="#{agenda.termino}">
+								<f:convertDateTime pattern="dd/MM/yyyy - HH:mm:ss"
+									timeZone="GMT-03:00" />
+							</h:outputText>
+						</p:column>
+					</p:dataTable>
+				</p:fieldset>
+				<br />
+
+				<p:fieldset legend="Aniversários" toggleable="true" collapsed="true"
+					toggleSpeed="500">
+					<p:dataTable id="listDatas" var="datas"
+						value="#{agendaListMB.lembretesDatas}" paginator="true" rows="5" paginatorPosition="bottom">
+						<f:facet name="header">Aniversários</f:facet>
+						<p:column style="width:8%;" sortBy="#{datas.nome}">
+							<f:facet name="header">Nome</f:facet>
+							<h:outputText value="#{datas.nome}" />
+						</p:column>
+
+						<p:column style="width:8%;" sortBy="#{datas.evento}">
+							<f:facet name="header">Evento</f:facet>
+							<h:outputText value="#{datas.evento}" />
+						</p:column>
+
+						<p:column style="width:8%;" sortBy="#{datas.dataDiaMes}">
+							<f:facet name="header">Data</f:facet>
+							<h:outputText value="#{datas.dataDiaMes}"/>
+						</p:column>
+					</p:dataTable>
+				</p:fieldset>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

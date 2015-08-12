@@ -1,0 +1,80 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/pages/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form>
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton title="#{messages['botao.novo']}"
+						icon="ui-icon-document" action="#{casalListMB.getNextView}"
+						actionListener="#{casalListMB.clear}" ajax="false" />
+
+					<p:commandButton title="#{messages['botao.excluir']}"
+						icon="ui-icon-trash" onclick="PF('confirmation').show();"
+						type="button" immediate="true" ajax="false" />
+
+					<p:confirmDialog message="#{messages['label.confirm.delete']}"
+						showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.alert']}!" severity="alert"
+						widgetVar="confirmation">
+
+						<h:commandButton value="#{messages['botao.dialogo.sim']}"
+							action="#{casalListMB.deleteSelection}"
+							actionListener="#{casalListMB.clear}" />
+						<h:commandButton value="#{messages['botao.dialogo.nao']}"
+							onclick="PF('confirmation').hide();" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:dataTable id="list" var="bean" value="#{casalListMB.resultList}" paginator="true" rows="10" paginatorPosition="bottom">
+				<f:facet name="header">Lista de Casais do Ministério</f:facet>
+
+				<p:column style="width:1%;">
+					<h:selectBooleanCheckbox value="#{casalListMB.selection[bean.id]}" />
+				</p:column>
+
+				<p:column style="width:8%;" sortBy="#{bean.marido.nome}">
+					<f:facet name="header">Marido</f:facet>
+					<h:commandLink action="#{casalListMB.getNextView}"
+						actionListener="#{casalListMB.clear}">
+						<h:outputText value="#{bean.marido.nome}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+
+				<p:column style="width:8%;" sortBy="#{bean.esposa.nome}">
+					<f:facet name="header">Esposa</f:facet>
+					<h:commandLink action="#{casalListMB.getNextView}"
+						actionListener="#{casalListMB.clear}">
+						<h:outputText value="#{bean.esposa.nome}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+
+				<p:column style="width:11%;" sortBy="#{bean.marido.endereco}">
+					<f:facet name="header">Endereco</f:facet>
+					<h:outputText value="#{bean.marido.endereco}" />
+				</p:column>
+
+				<p:column style="width:7%;"
+					sortBy="#{bean.marido.telefoneResidencial}">
+					<f:facet name="header">Telefone Fixo</f:facet>
+					<h:outputText value="#{bean.marido.telefoneResidencial}" />
+				</p:column>
+
+				<p:column style="width:5%;"
+					sortBy="#{bean.dataAniversarioCasamento}">
+					<f:facet name="header">Aniversário de Casamento</f:facet>
+					<h:outputText value="#{bean.dataAniversarioCasamento}">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</h:outputText>		
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

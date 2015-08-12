@@ -1,0 +1,32 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="main.xhtml">
+
+	<ui:define name="body">
+		<p:panel>
+			<h:outputLabel value="Informe seu seu usuário e senha: "  />
+			<div style="background-color: #e1e1e1;width: 400px;height: 150px;left: 50%;margin: -130px 0 0 -210px;             padding:10px;
+                position: absolute;top: 50%;">
+				<h:form>
+					<h:panelGrid id="fieldsLogin" columns="3">
+						<br />
+						<br />
+						<h:outputLabel value="Login: " for="login" />
+						<h:inputText id="login" value="#{loginMB.credenciais.username}" />
+						<br />
+						<br />
+						<h:outputLabel value="Senha: " for="senha" />
+						<h:inputSecret id="senha" value="#{loginMB.credenciais.password}" />
+					</h:panelGrid>
+					<br />
+					<h:commandButton value="Login" action="#{loginMB.login}" />
+					<br />
+					<br />
+				</h:form>
+			</div>
+		</p:panel>
+	</ui:define>
+
+</ui:composition>

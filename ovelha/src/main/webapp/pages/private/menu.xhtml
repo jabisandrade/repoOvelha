@@ -1,0 +1,38 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:form>
+		<p:menubar>
+			<p:submenu label="Casais">
+				<p:menuitem value="Incluir" url="/pages/private/casal_edit.jsf" />
+				<p:menuitem value="Listar" url="/pages/private/casal_list.jsf" />
+			</p:submenu>
+			<p:submenu label="Discipulos">
+				<p:menuitem value="Homens" url="/pages/private/homem_list.jsf" />
+				<p:menuitem value="Mulheres" url="/pages/private/mulher_list.jsf" />
+				<p:menuitem value="Filhos" url="/pages/private/filhos_list.jsf" />
+			</p:submenu>
+			<p:submenu label="Agenda">
+				<p:menuitem value="Incluir" url="/pages/private/agenda_edit.jsf" />
+				<p:menuitem value="Listar" url="/pages/private/agenda_list.jsf" />
+				<p:menuitem value="Lembretes" url="/pages/private/inicial.jsf" />
+			</p:submenu>
+			<p:submenu label="Configurações">
+				<p:submenu label="Usuarios">
+					<p:menuitem value="Incluir" url="/pages/private/usuario_edit.jsf" />
+					<p:menuitem value="Listar" url="/pages/private/usuario_list.jsf" />
+					<p:menuitem value="Alterar Senha"
+						url="/pages/private/usuario_senha.jsf" />
+				</p:submenu>
+				<p:menuitem value="Email" url="/pages/private/email_edit.jsf"/>				
+			</p:submenu>
+			<p:menuitem value="Sobre" url="/pages/private/sobre.jsf" />
+			<p:menuitem value="Sair" action="#{loginMB.logout}" />
+
+		</p:menubar>
+	</h:form>
+
+</ui:composition>

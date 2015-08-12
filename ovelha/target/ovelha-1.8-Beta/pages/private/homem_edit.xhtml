@@ -1,0 +1,100 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/pages/private/template/main.xhtml">
+	<ui:define name="body">
+		<h:form prependId="false">
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['botao.salvar']}"
+						action="#{homemEditMB.insert}"
+						rendered="#{!homemEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['botao.salvar']}"
+						action="#{homemEditMB.update}"
+						rendered="#{homemEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['botao.excluir']}"
+						rendered="#{homemEditMB.updateMode}"
+						onclick="PF('confirmation').show()" type="button" immediate="true"
+						ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}"
+						header="#{messages['label.dialog.delete']}" showEffect="bounce"
+						hideEffect="explode" severity="alert" widgetVar="confirmation">
+						<p:commandButton value="#{messages['botao.dialogo.sim']}"
+							action="#{homemEditMB.delete}" immediate="true" ajax="false" />
+						<p:commandButton value="#{messages['botao.dialogo.nao']}"
+							onclick="PF('confirmation').hide();" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<p:fieldset legend="Discipulo" toggleable="true" toggleSpeed="500">
+
+				<h:panelGrid id="fieldsDiscipulo" columns="6">
+
+					<h:outputLabel value="Nome: " for="nome" styleClass="text-input" />
+					<h:inputText id="nome" value="#{homemEditMB.bean.nome}"
+						title="Nome do discipulo(a)" required="true" />
+					<p:message for="nome" />
+
+					<p:outputLabel for="aniversario" value="Data de Aniversário:" />
+					<p:calendar id="aniversario"
+						value="#{homemEditMB.bean.dataAniversario}" pattern="dd/MM/yyyy"
+						mask="true" required="true">
+						<!-- <p:ajax event="blur" process="@this" update="msgAniversario" /> -->
+					</p:calendar>
+					<p:message id="msgAniversario" for="aniversario" />
+
+					<h:outputLabel value="Endereço: " for="endereco"
+						styleClass="text-input" />
+					<h:inputText id="endereco" value="#{homemEditMB.bean.endereco}"
+						title="endereco" required="true" />
+					<p:message for="endereco" />
+
+					<h:outputLabel value="Celular: " for="celular"
+						styleClass="text-input" />
+					<h:inputText id="celular"
+						value="#{homemEditMB.bean.telefoneCelular}" title="Celular" />
+					<p:message for="celular" />
+
+					<h:outputLabel value="Email: " for="email" styleClass="text-input" />
+					<h:inputText id="email" value="#{homemEditMB.bean.email}"
+						title="Email" />
+					<p:message for="email" />
+
+				</h:panelGrid>
+				
+				<br />
+				<h:panelGrid id="fieldsHistorico" columns="4">
+
+					<h:outputLabel value="Batizado? " for="chkBatizado"
+						styleClass="text-input" />
+					<h:selectBooleanCheckbox id="chkBatizado"
+						value="#{homemEditMB.bean.batizado}" />
+
+					<h:outputLabel value="Encontro? " for="chkEncontro"
+						styleClass="text-input" />
+					<h:selectBooleanCheckbox id="chkEncontro"
+						value="#{homemEditMB.bean.encontro}" />
+
+					<h:outputLabel value="Pós-Encontro? " for="chkPosEncontro"
+						styleClass="text-input" />
+					<h:selectBooleanCheckbox id="chkPosEncontro"
+						value="#{homemEditMB.bean.posEncontro}" />
+
+					<h:outputLabel value="Capacitação Destino? " for="chkCapacitacao"
+						styleClass="text-input" />
+					<h:selectBooleanCheckbox id="chkCapacitacao"
+						value="#{homemEditMB.bean.capacitacaoDestino}" />
+
+				</h:panelGrid>
+
+				<br />
+
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

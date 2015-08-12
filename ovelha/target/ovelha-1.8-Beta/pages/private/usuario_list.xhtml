@@ -1,0 +1,55 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/pages/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form>
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton title="#{messages['botao.novo']}"
+						icon="ui-icon-document" action="#{usuarioListMB.getNextView}"
+						actionListener="#{usuarioListMB.clear}" ajax="false" />
+
+					<p:commandButton title="#{messages['botao.excluir']}"
+						icon="ui-icon-trash" onclick="PF('confirmation').show();"
+						type="button" immediate="true" ajax="false" />
+
+					<p:confirmDialog message="#{messages['label.confirm.delete']}"
+						showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.alert']}!" severity="alert"
+						widgetVar="confirmation">
+
+						<h:commandButton value="#{messages['botao.dialogo.sim']}"
+							action="#{usuarioListMB.deleteSelection}"
+							actionListener="#{usuarioListMB.clear}" />
+						<h:commandButton value="#{messages['botao.dialogo.nao']}"
+							onclick="PF('confirmation').hide();" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:dataTable id="list" var="bean" value="#{usuarioListMB.resultList}" paginator="true" rows="5" paginatorPosition="bottom">
+				<f:facet name="header">Lista de Usuarios do Sistema</f:facet>
+
+				<p:column style="width:1%;">
+					<h:selectBooleanCheckbox
+						value="#{usuarioListMB.selection[bean.idUsuario]}" />
+				</p:column>
+
+				<p:column style="width:8%;" sortBy="#{bean.login}">
+					<f:facet name="header">Nome</f:facet>
+					<h:outputText value="#{bean.login}" />
+				</p:column>
+				
+				<p:column style="width:8%;" sortBy="#{bean.login}">
+					<f:facet name="header">Perfil</f:facet>
+					<h:outputText value="Administrador" />
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,59 @@
+<html xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<f:view contentType="text/html" locale="#{locales.currentLocale}" />
+
+<h:head>
+	<title>#{messages['main.app.titulo']}</title>
+	<link type="text/css" rel="stylesheet" href="css/styles.css" />
+</h:head>
+
+<h:body style="background-color:#f1f1f1">
+	<table style="width: 100%">
+		<tr>
+			<td align="left"><a href="login.jsf"><img
+					src="../../images/ovelha.png" border="0" /></a></td>
+			<td align="center"><p
+					style="font-size: 25px; font-weight: lighter;">Cadastro de
+					Discípulos - Ministério de Casais</p></td>
+			<td>
+				<div style="float: right;">
+					<a href="http://www.facebook.com/EdificandoFamilias"><img
+						src="../../images/facebook.png" border="0" /></a> <a
+						href="http://twitter.com/amilton_desouza"><img
+						src="../../images/twitter.png" border="0" /></a> <a
+						href="http://instagram.com/janasandrade"><img
+						src="../../images/instagram.png" border="0" /></a>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<table style="width: 100%">
+		<tr>
+			<h:outputLabel value=" " style="font-weight:bold" for="login" />
+		</tr>
+		<tr valign="top">
+			<td height="400"><ui:insert name="body" /></td>
+		</tr>
+		<tr align="center">
+			<td height="20" align="center" style="font-size: 17px;">#{messages['main.app.rodape']}</td>
+		</tr>
+		<tr align="center">
+			<td height="12" align="center" style="font-size: 17px;">Desenvolvimento <a href="http://byjabis.blogspot.com">byJabis</a> usando <a href="https://www.frameworkdemoiselle.gov.br/">Demoiselle</a></td>
+		</tr>
+	</table>
+
+	<p:growl id="messages" globalOnly="true" />
+
+	<p:ajaxStatus style="width:16px;height:16px;">
+		<f:facet name="start">
+		</f:facet>
+
+		<f:facet name="complete">
+			<h:outputText value="" />
+		</f:facet>
+	</p:ajaxStatus>
+</h:body>
+</html>

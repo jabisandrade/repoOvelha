@@ -1,0 +1,76 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/pages/private/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form>
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton title="#{messages['botao.novo']}"
+						icon="ui-icon-document" action="#{agendaListMB.getNextView}"
+						actionListener="#{agendaListMB.clear}" ajax="false" />
+
+					<p:commandButton title="#{messages['botao.excluir']}"
+						icon="ui-icon-trash" onclick="PF('confirmation').show();"
+						type="button" immediate="true" ajax="false" />
+
+					<p:confirmDialog message="#{messages['label.confirm.delete']}"
+						showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.alert']}!" severity="alert"
+						widgetVar="confirmation">
+
+						<h:commandButton value="#{messages['botao.dialogo.sim']}"
+							action="#{agendaListMB.deleteSelection}"
+							actionListener="#{agendaListMB.clear}" />
+						<h:commandButton value="#{messages['botao.dialogo.nao']}"
+							onclick="PF('confirmation').hide();" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:dataTable id="list" var="bean" value="#{agendaListMB.resultList}" paginator="true" rows="10" paginatorPosition="bottom">
+				<f:facet name="header">Lista de eventos programados</f:facet>
+
+				<p:column style="width:1%;">
+					<h:selectBooleanCheckbox
+						value="#{agendaListMB.selection[bean.idAgenda]}" />
+				</p:column>
+
+
+				<p:column style="width:8%;" sortBy="#{bean.nome}">
+					<f:facet name="header">Nome do Evento</f:facet>
+					<h:commandLink action="#{agendaListMB.getNextView}"
+						actionListener="#{agendaListMB.clear}">
+						<h:outputText value="#{bean.nome}" />
+						<f:param name="id" value="#{bean.idAgenda}" />
+					</h:commandLink>
+				</p:column>
+
+				<p:column style="width:8%;" sortBy="#{bean.inicio}">
+					<f:facet name="header">Início (Data - Hora)</f:facet>
+					<h:outputText value="#{bean.inicio}">
+						<f:convertDateTime pattern="dd/MM/yyyy - HH:mm:ss" timeZone="GMT-03:00" />
+					</h:outputText>
+
+				</p:column>
+
+				<p:column style="width:8%;" sortBy="#{bean.termino}">
+					<f:facet name="header">Termino (Data - Hora)</f:facet>
+					<h:outputText value="#{bean.termino}" >
+						<f:convertDateTime pattern="dd/MM/yyyy - HH:mm:ss" timeZone="GMT-03:00"/>
+					</h:outputText>
+				</p:column>
+
+				<p:column style="width:8%;" sortBy="#{bean.local}">
+					<f:facet name="header">Local</f:facet>
+					<h:outputText value="#{bean.local}" />
+				</p:column>
+
+
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,289 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/pages/private/template/main.xhtml">
+	<ui:define name="body">
+		<h:form prependId="false" id="form1">
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['botao.salvar']}"
+						action="#{casalEditMB.insert}"
+						rendered="#{!casalEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['botao.salvar']}"
+						action="#{casalEditMB.update}"
+						rendered="#{casalEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['botao.excluir']}"
+						rendered="#{casalEditMB.updateMode}"
+						onclick="PF('confirmation').show()" type="button" immediate="true"
+						ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}"
+						header="#{messages['label.dialog.delete']}" showEffect="bounce"
+						hideEffect="explode" severity="alert" widgetVar="confirmation">
+						<p:commandButton value="#{messages['botao.dialogo.sim']}"
+							action="#{casalEditMB.delete}" immediate="true" ajax="false" />
+						<p:commandButton value="#{messages['botao.dialogo.nao']}"
+							onclick="PF('confirmation').hide();" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<p:fieldset legend="Casal" toggleable="true" toggleSpeed="500">
+
+				<p:fieldset legend="Marido" toggleable="true" toggleSpeed="500">
+
+					<h:panelGrid id="fieldsMarido" columns="9">
+
+						<h:outputLabel value="Nome do Marido: " for="marido"
+							styleClass="text-input" />
+						<h:inputText id="marido" value="#{casalEditMB.bean.marido.nome}"
+							title="Marido" required="true" />
+						<p:message for="marido" />
+
+						<p:outputLabel for="aniversarioMarido"
+							value="Data de Aniversário:" />
+						<p:calendar id="aniversarioMarido"
+							value="#{casalEditMB.bean.marido.dataAniversario}"
+							pattern="dd/MM/yyyy" mask="true" required="true">
+							<!-- <p:ajax event="blur" process="@this"
+								update="msgAniversarioMarido" /> -->
+						</p:calendar>
+						<p:message id="msgAniversarioMarido" for="aniversarioMarido" />
+
+						<h:outputLabel value="Celular: " for="celularMarido"
+							styleClass="text-input" />
+						<h:inputText id="celularMarido"
+							value="#{casalEditMB.bean.marido.telefoneCelular}"
+							title="Celular" />
+						<p:message for="celularMarido" />
+
+						<h:outputLabel value="Email: " for="emailMarido"
+							styleClass="text-input" />
+						<h:inputText id="emailMarido"
+							value="#{casalEditMB.bean.marido.email}" title="Email" />
+						<p:message for="emailMarido" />
+
+						<h:outputLabel value="Lider: " for="liderMarido"
+							styleClass="text-input" />
+						<h:inputText id="liderMarido"
+							value="#{casalEditMB.bean.marido.nomeLider}"
+							title="Nome do Lider direto" />
+						<p:message for="liderMarido" />
+
+						<h:outputLabel value="Lider Macro: " for="liderMacroMarido"
+							styleClass="text-input" />
+						<h:inputText id="liderMacroMarido"
+							value="#{casalEditMB.bean.marido.nomeLiderMacro}"
+							title="Nome do Lider da Macro" />
+						<p:message for="liderMacroMarido" />
+
+					</h:panelGrid>
+					<br />
+					<h:panelGrid id="fieldsHistoricoMarido" columns="8">
+
+						<h:outputLabel value="Batizado? " for="chkBatizado"
+							styleClass="text-input" />
+						<h:selectBooleanCheckbox id="chkBatizado"
+							value="#{casalEditMB.bean.marido.batizado}" />
+
+						<h:outputLabel value="Encontro? " for="chkEncontro"
+							styleClass="text-input" />
+						<h:selectBooleanCheckbox id="chkEncontro"
+							value="#{casalEditMB.bean.marido.encontro}" />
+
+						<h:outputLabel value="Pós-Encontro? " for="chkPosEncontro"
+							styleClass="text-input" />
+						<h:selectBooleanCheckbox id="chkPosEncontro"
+							value="#{casalEditMB.bean.marido.posEncontro}" />
+
+						<h:outputLabel value="Capacitação Destino? " for="chkCapacitacao"
+							styleClass="text-input" />
+						<h:selectBooleanCheckbox id="chkCapacitacao"
+							value="#{casalEditMB.bean.marido.capacitacaoDestino}" />
+
+					</h:panelGrid>
+				</p:fieldset>
+				<br />
+				<p:fieldset legend="Esposa" toggleable="true" toggleSpeed="500">
+					<h:panelGrid id="fieldsEsposa" columns="9">
+						<h:outputLabel value="Nome da Esposa: " for="esposa"
+							styleClass="text-input" />
+						<h:inputText id="esposa" value="#{casalEditMB.bean.esposa.nome}"
+							title="Esposa" required="true" />
+						<p:message for="esposa" />
+
+						<p:outputLabel for="aniversarioEsposa"
+							value="Data de Aniversário:" />
+						<p:calendar id="aniversarioEsposa"
+							value="#{casalEditMB.bean.esposa.dataAniversario}"
+							pattern="dd/MM/yyyy" mask="true" required="true">
+							<!-- <p:ajax event="blur" process="@this"
+								update="msgAniversarioEsposa" /> -->
+						</p:calendar>
+						<p:message id="msgAniversarioEsposa" for="aniversarioEsposa" />
+
+						<h:outputLabel value="Celular:" for="celularEsposa"
+							styleClass="text-input" />
+						<h:inputText id="celularEsposa"
+							value="#{casalEditMB.bean.esposa.telefoneCelular}"
+							title="Celular" />
+						<p:message for="celularEsposa" />
+
+						<h:outputLabel value="Email: " for="emailEsposa"
+							styleClass="text-input" />
+						<h:inputText id="emailEsposa"
+							value="#{casalEditMB.bean.esposa.email}" title="Email" />
+						<p:message for="emailEsposa" />
+
+						<h:outputLabel value="Lider: " for="liderEsposa"
+							styleClass="text-input" />
+						<h:inputText id="liderEsposa"
+							value="#{casalEditMB.bean.esposa.nomeLider}"
+							title="Nome do Lider direto" />
+						<p:message for="liderEsposa" />
+
+						<h:outputLabel value="Lider Macro: " for="liderMacroEsposa"
+							styleClass="text-input" />
+						<h:inputText id="liderMacroEsposa"
+							value="#{casalEditMB.bean.esposa.nomeLiderMacro}"
+							title="Nome do Lider da Macro" />
+						<p:message for="liderMacroEsposa" />
+					</h:panelGrid>
+					<br />
+					<h:panelGrid id="fieldsHistoricoEsposa" columns="8">
+
+						<h:outputLabel value="Batizada? " for="chkBatizada"
+							styleClass="text-input" />
+						<h:selectBooleanCheckbox id="chkBatizada"
+							value="#{casalEditMB.bean.esposa.batizado}" />
+
+						<h:outputLabel value="Encontro? " for="chkEncontroM"
+							styleClass="text-input" />
+						<h:selectBooleanCheckbox id="chkEncontroM"
+							value="#{casalEditMB.bean.esposa.encontro}" />
+
+						<h:outputLabel value="Pós-Encontro? " for="chkPosEncontroM"
+							styleClass="text-input" />
+						<h:selectBooleanCheckbox id="chkPosEncontroM"
+							value="#{casalEditMB.bean.esposa.posEncontro}" />
+
+						<h:outputLabel value="Capacitação Destino? " for="chkCapacitacaoM"
+							styleClass="text-input" />
+						<h:selectBooleanCheckbox id="chkCapacitacaoM"
+							value="#{casalEditMB.bean.esposa.capacitacaoDestino}" />
+
+					</h:panelGrid>
+				</p:fieldset>
+				<br />
+
+				<p:fieldset legend="Ambos" toggleable="true" toggleSpeed="500">
+					<h:panelGrid id="fieldsCasal" columns="9">
+						<h:outputLabel value="Endereço: " for="endereco"
+							styleClass="text-input" />
+						<h:inputText id="endereco" required="true"
+							value="#{casalEditMB.bean.marido.endereco}" title="Endereço" />
+						<p:message for="endereco" />
+
+						<p:outputLabel for="casamento" value="Data de Casamento:" />
+						<p:calendar id="casamento"
+							value="#{casalEditMB.bean.dataAniversarioCasamento}"
+							pattern="dd/MM/yyyy" mask="true" required="true">
+							<!-- <p:ajax event="blur" process="@this" update="msgCasamento" /> -->
+						</p:calendar>
+						<p:message id="msgCasamento" for="casamento" />
+
+						<h:outputLabel value="Telefone Fixo: " for="telefone"
+							styleClass="text-input" />
+						<h:inputText id="telefone"
+							value="#{casalEditMB.bean.marido.telefoneResidencial}"
+							title="Telefone" />
+						<p:message for="telefone" />
+					</h:panelGrid>
+					<br />
+					<h:panelGrid id="fieldsHistoricoAmbos" columns="4">
+						<h:outputLabel value="Encontro de Casais? "
+							for="chkEncontroCasais" styleClass="text-input" />
+						<h:selectBooleanCheckbox id="chkEncontroCasais"
+							value="#{casalEditMB.bean.encontroCasais}" />
+
+						<h:outputLabel value="Casados para Sempre? " for="chkCasados"
+							styleClass="text-input" />
+						<h:selectBooleanCheckbox id="chkCasados"
+							value="#{casalEditMB.bean.casadosParaSempre}" />
+					</h:panelGrid>
+
+				</p:fieldset>
+				<br />
+
+				<p:fieldset id="fieldsFilhos" legend="Filhos" toggleable="true"
+					toggleSpeed="500">
+					<h:panelGrid id="numeroFilhos" columns="3">
+						<h:outputLabel value="Número de Filhos: " for="numero"
+							styleClass="text-input" />
+						<h:inputText id="numero" value="#{casalEditMB.numeroFilhos}"
+							maxlength="2" size="2"
+							title="Insira o número de filhos e pressione a tecla TAB para habilitar o preenchimento dos outros campos.">
+							<p:ajax event="change" listener="#{casalEditMB.mostrarFilhos}"
+								process="@this"
+								update="fieldsFilhos,mostrarFilhos,listaNomeFilhos" />
+						</h:inputText>
+						<p:message for="numero" />
+
+					</h:panelGrid>
+					<br />
+
+					<h:panelGrid id="mostrarFilhos"
+						rendered="#{casalEditMB.exibeFilhos}" columns="2">
+
+						<p:dataTable id="listaNomeFilhos" var="filho" paginator="true" rows="1" paginatorPosition="bottom"  
+							value="#{casalEditMB.bean.filhos}">
+							
+
+							<p:column style="width:10%;">
+								<f:facet name="header">Nome</f:facet>
+								<h:inputText value="#{filho.nome}" title="Nome do Filho"
+									required="true" size="80" />
+							</p:column>
+
+							<p:column style="width:3%;">
+								<f:facet name="header">Data de Aniversario</f:facet>
+								<p:calendar value="#{filho.dataAniversario}"
+									pattern="dd/MM/yyyy" mask="true" required="true">
+
+								</p:calendar>
+							</p:column>
+
+							<p:column style="width:2%;">
+								<h:panelGrid id="botaoExcluirFilho" style="border:transparent"
+									rendered="#{filho.id>0}" columns="1">
+
+									<p:commandButton value="#{messages['botao.excluir']}"
+										rendered="#{casalEditMB.updateMode}"
+										onclick="PF('confirmation2').show()" type="button"
+										immediate="true" ajax="false" />
+									<p:confirmDialog message="#{messages['label.confirm.delete']}" style="position: absolute;top: 50%;"
+										header="#{messages['label.dialog.delete']}"
+										showEffect="bounce" hideEffect="explode" severity="alert"
+										widgetVar="confirmation2">
+										<p:commandButton value="#{messages['botao.dialogo.sim']}"
+											action="#{casalEditMB.deleteSelectionFilho}" immediate="true"
+											ajax="false">
+											<f:param name="idFilho" value="#{filho.id}" />
+										</p:commandButton>
+										<p:commandButton value="#{messages['botao.dialogo.nao']}"
+											onclick="PF('confirmation2').hide();" type="button" />
+									</p:confirmDialog>
+								</h:panelGrid>
+							</p:column>
+
+
+						</p:dataTable>
+					</h:panelGrid>
+				</p:fieldset>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

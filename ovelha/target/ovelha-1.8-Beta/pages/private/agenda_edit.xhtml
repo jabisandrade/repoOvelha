@@ -1,0 +1,96 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/pages/private/template/main.xhtml">
+	<ui:define name="body">
+		<h:form prependId="false">
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['botao.salvar']}"
+						action="#{agendaEditMB.insert}"
+						rendered="#{!agendaEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['botao.salvar']}"
+						action="#{agendaEditMB.update}"
+						rendered="#{agendaEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['botao.excluir']}"
+						rendered="#{agendaEditMB.updateMode}"
+						onclick="PF('confirmation').show()" type="button" immediate="true"
+						ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}"
+						header="#{messages['label.dialog.delete']}" showEffect="bounce"
+						hideEffect="explode" severity="alert" widgetVar="confirmation">
+						<p:commandButton value="#{messages['botao.dialogo.sim']}"
+							action="#{agendaEditMB.delete}" immediate="true" ajax="false" />
+						<p:commandButton value="#{messages['botao.dialogo.nao']}"
+							onclick="PF('confirmation').hide();" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<p:fieldset legend="Evento" toggleable="true" toggleSpeed="500">
+
+				<h:panelGrid id="fieldsEvento" columns="6">
+
+					<h:outputLabel value="Nome do Evento: " for="nomeEvento"
+						styleClass="text-input" />
+					<h:inputText id="nomeEvento" value="#{agendaEditMB.bean.nome}"
+						title="Nome do evento" required="true" />
+					<p:message for="nomeEvento" />
+
+					<h:outputLabel value="Local: " for="local" styleClass="text-input" />
+					<h:inputText id="local" value="#{agendaEditMB.bean.local}"
+						title="Local" required="true" />
+					<p:message for="local" />
+
+					<p:outputLabel for="inicio" value="Inicio:" />
+					<p:calendar id="inicio" required="true"
+						value="#{agendaEditMB.bean.inicio}" pattern="dd/MM/yyyy HH:mm:ss" timeZone="GMT-03:00"
+						mask="true">
+					</p:calendar>
+					<p:message id="msgInicio" for="inicio" />
+
+					<p:outputLabel for="termino" value="Término:" />
+					<p:calendar id="termino" required="true"
+						value="#{agendaEditMB.bean.termino}" pattern="dd/MM/yyyy HH:mm:ss" timeZone="GMT-03:00"
+						mask="true">
+					</p:calendar>
+					<p:message id="msgTermino" for="termino" />
+
+				</h:panelGrid>
+				<br />
+			</p:fieldset>
+
+			<p:fieldset legend="Descrição" toggleable="true" toggleSpeed="500">
+				<h:panelGrid id="fieldDescricao" columns="2">
+					<h:inputTextarea id="descricao" cols="100" rows="6"
+						value="#{agendaEditMB.bean.descricao}" title="Descrição"
+						required="true" />
+					<p:message for="descricao" />
+				</h:panelGrid>
+				<br />
+
+			</p:fieldset>
+
+			<p:fieldset legend="Notificação" toggleable="true" toggleSpeed="500">
+				<h:panelGrid id="fieldsNotificao" columns="3">
+					<h:outputLabel value="Email(s) para notificacão: " for="email"
+						styleClass="text-input" />
+					<h:inputText id="email" value="#{agendaEditMB.bean.emailNotificao}" disabled="true"
+						title="Insira emails separandos por vírgulas(,)" />
+					<p:message for="email" />
+
+					<h:outputLabel value="Notificar Casais cadastrados no sistema? "
+						for="chk" styleClass="text-input" />
+					<h:selectBooleanCheckbox id="chk" disabled="true"
+						value="#{agendaEditMB.bean.notificarCasaisCadastrados}" />
+
+				</h:panelGrid>
+				<br />
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>
