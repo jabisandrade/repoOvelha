@@ -26,5 +26,29 @@ public class CasalDAO extends AbstractDAO<Casal, Long> {
 
 		return executeQuery(jpql.toString(), parametros);  
     }
+    
+    public Long obterCasalPorUsuario(Long usuarioId){
+    	
+		StringBuilder jpql = new StringBuilder();
+		HashMap<String, Object> parametros = new HashMap<String, Object>();
+
+		jpql.append(" select c from Casal c");
+		jpql.append(" 	inner join c.usuario u");
+		jpql.append(" where u.idUsuario = :id");
+
+
+		parametros.put("id", usuarioId);
+		
+		Casal casal =  executeSingleResultQuery(jpql.toString(), parametros);
+		
+		if (casal == null){
+			return 0L;
+		}else{
+			return casal.getIdCasal();	
+		}
+    }
+
+		  
+    
 	
 }

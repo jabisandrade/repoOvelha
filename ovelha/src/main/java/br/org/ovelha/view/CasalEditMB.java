@@ -39,6 +39,8 @@ public class CasalEditMB extends AbstractEditPageBean<Casal, Long> {
 	private boolean exibeFilhos = false;
 	
 
+	
+
 	@PostConstruct
 	public void init(){
 		if (getBean()!=null && getBean().getFilhos().size()>0){
@@ -150,6 +152,8 @@ public class CasalEditMB extends AbstractEditPageBean<Casal, Long> {
 		return getPreviousView();
 
 	}
+	
+
 
 
 }

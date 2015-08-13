@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import br.gov.frameworkdemoiselle.stereotype.BusinessController;
@@ -43,9 +44,9 @@ public class CasalBC extends DelegateCrud<Casal, Long, CasalDAO> {
 	public void inserirCasal(Casal casal) {
 		Usuario usuario = usuarioBC.obterUsuarioLogado();
 		
-	//	if(usuario.getPerfil().isPUB()){
+		if(usuario.getPerfil().isPUB()){
 			casal.setUsuario(usuario);
-		//}
+		}
 		casal.setDataRegistro(Data.dataAtual());
 		CDIFactory.getCasalDAO().insert(casal);
 		CDIFactory.getCasalDAO().flushEntityManager();		
@@ -55,12 +56,21 @@ public class CasalBC extends DelegateCrud<Casal, Long, CasalDAO> {
 	public List<Casal> obterTodosCasais (){
 		
 		List<Casal> retornoCasais = new ArrayList<Casal>();
-		List<Casal> casais = this.findAll();
+		List<Casal> casais = new ArrayList<Casal>();
+		Usuario usuario = usuarioBC.obterUsuarioLogado();
 		
-		for (Casal casal:casais){
-			retornoCasais.add(this.obterCasal(casal.getId()));
+		if(usuario.getPerfil().isPUB()){
+			Long idCasalUsuarioLogado = this.obterCasalPorUsuario();
+			retornoCasais.add(this.obterCasal(idCasalUsuarioLogado));
+			return retornoCasais;
+		}else{
+			casais = this.findAll();
+			for (Casal casal:casais){
+				retornoCasais.add(this.obterCasal(casal.getId()));
+			}
+			return retornoCasais;			
 		}
-		return retornoCasais;
+		
 	}
 
 	public void atualizarCasal(Casal bean) {
@@ -98,6 +108,12 @@ public class CasalBC extends DelegateCrud<Casal, Long, CasalDAO> {
 			filhosUpdate.add(filho);
 		}
 		return filhosUpdate;
+	}
+	
+	public Long obterCasalPorUsuario() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		String id = fc.getExternalContext().getSessionMap().get("usuarioid").toString();		
+		return CDIFactory.getCasalDAO().obterCasalPorUsuario(Long.parseLong(id));		
 	}
 
 	
