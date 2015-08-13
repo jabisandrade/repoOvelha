@@ -6,9 +6,10 @@
 
 	<h:form>
 		<p:menubar>
-			<p:menuitem value="Cadastrar" url="/pages/private/casal_edit.jsf" rendered="#{!loginMB.ADM}" />
+			<p:menuitem value="Cadastrar" url="/pages/private/casal_edit.jsf" rendered="#{!loginMB.ADM && !loginMB.exibeAtualizar}" />
+			<p:menuitem value="Atualizar" url="/pages/private/casal_list.jsf" rendered="#{!loginMB.ADM && loginMB.exibeAtualizar}" />
 			<p:submenu label="Casais" rendered="#{loginMB.ADM}" >
-				<p:menuitem value="Incluir" url="/pages/private/casal_edit.jsf" />
+				<p:menuitem value="Incluir" url="/pages/private/casal_edit.jsf"  />
 				<p:menuitem value="Listar" url="/pages/private/casal_list.jsf" />
 			</p:submenu>
 			<p:submenu label="Discipulos" rendered="#{loginMB.ADM}">

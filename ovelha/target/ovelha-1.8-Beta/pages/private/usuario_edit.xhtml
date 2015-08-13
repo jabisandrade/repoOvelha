@@ -39,21 +39,21 @@
 					<h:inputText id="login" value="#{usuarioEditMB.bean.login}"
 						title="Nome do usuario" required="true" />
 					<p:message for="login" />
-
+					
 					<h:outputLabel value="Senha: " for="senha" styleClass="text-input" />
 					<h:inputSecret id="senha" value="#{usuarioEditMB.bean.senha}"
 						title="Senha do usuario" required="true" />
 					<p:message for="senha" />
-
+					
 					<h:outputLabel value="Perfil: " for="perfil" styleClass="text-input" />
-					<h:selectOneRadio value="#{usuarioEditMB.bean.perfilId}">
+					<h:selectOneRadio id="perfil" value="#{usuarioEditMB.bean.perfilId}">
 						<f:selectItem itemValue="1" itemLabel="Administrador" />
 						<f:selectItem itemValue="2" itemLabel="Público" />						
 					</h:selectOneRadio>
-					<p:message for="perfil" />
+					<p:message for="perfil" />					
 
 				</h:panelGrid>
-
+				
 				<br />
 
 			</p:fieldset>
