@@ -15,13 +15,16 @@ public class Credenciais implements Serializable {
 	
 	private Long idUsuario;
 	
+	private Integer perfil;
+	
 	private boolean loggedIn = false;
 
 	public void clear() {
 		username = null;
 		password = null;
 		idUsuario = 0L;
-		loggedIn =false;	
+		loggedIn =false;
+		perfil = 0;
 	}
 
 	public String getUsername() {
@@ -54,5 +57,13 @@ public class Credenciais implements Serializable {
 
 	public void setLoggedIn(boolean loggedIn) {
 		this.loggedIn = loggedIn;
+	}
+
+	public Integer getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(Integer perfil) {
+		this.perfil = perfil;
 	}
 }

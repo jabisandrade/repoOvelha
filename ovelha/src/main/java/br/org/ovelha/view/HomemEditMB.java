@@ -3,6 +3,7 @@ package br.org.ovelha.view;
 import javax.inject.Inject;
 
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
+import br.gov.frameworkdemoiselle.security.RequiredPermission;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractEditPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
@@ -12,6 +13,7 @@ import br.org.ovelha.domain.Homem;
 
 @ViewController
 @PreviousView(PAGES.HOMEM_LIST)
+@RequiredPermission(resource="homem" , operation="editar")
 public class HomemEditMB extends AbstractEditPageBean<Homem, Long> {
 
 	private static final long serialVersionUID = 1L;

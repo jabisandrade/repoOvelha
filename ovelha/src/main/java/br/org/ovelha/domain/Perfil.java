@@ -36,5 +36,13 @@ public enum Perfil {
 
 		return null;
 	}
+	
+	public boolean isADM() {
+		return this.equals(Perfil.ADM);
+	}
+	
+	public boolean isPUB() {
+		return this.equals(Perfil.PUB);
+	}
 
 }

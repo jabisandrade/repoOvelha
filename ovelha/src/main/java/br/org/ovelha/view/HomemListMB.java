@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import br.gov.frameworkdemoiselle.annotation.NextView;
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
+import br.gov.frameworkdemoiselle.security.RequiredPermission;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractListPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
@@ -17,6 +18,7 @@ import br.org.ovelha.domain.Homem;
 @ViewController
 @NextView(PAGES.HOMEM_EDIT)
 @PreviousView(PAGES.HOMEM_LIST)
+@RequiredPermission(resource="homem" , operation="listar")
 public class HomemListMB extends AbstractListPageBean<Homem, Long> {
 
 	private static final long serialVersionUID = 1L;

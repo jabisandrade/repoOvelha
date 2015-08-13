@@ -41,6 +41,9 @@ public class Usuario implements EntidadeIf {
 	@Transient
 	private String senhaNovaRepetida;
 	
+	@Transient
+	private Integer perfilId;
+	
 	public Usuario(){
 		
 	}
@@ -96,6 +99,31 @@ public class Usuario implements EntidadeIf {
 
 	public void setPerfil(Perfil perfil) {
 		this.perfil = perfil.getId();
+	}
+	
+	
+	
+	public Integer getPerfilId() {
+		return perfilId;
+	}
+
+	public void setPerfilId(Integer perfilId) {
+		this.perfilId = perfilId;
+		this.perfil = perfilId;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return idUsuario;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.idUsuario = id;
 	}
 
 	

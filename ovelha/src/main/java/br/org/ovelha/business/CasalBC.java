@@ -13,6 +13,7 @@ import br.org.ovelha.domain.Casal;
 import br.org.ovelha.domain.Filho;
 import br.org.ovelha.domain.Homem;
 import br.org.ovelha.domain.Mulher;
+import br.org.ovelha.domain.Usuario;
 import br.org.ovelha.persistence.CasalDAO;
 import br.org.ovelha.util.CDIFactory;
 import br.org.ovelha.util.Data;
@@ -26,7 +27,10 @@ public class CasalBC extends DelegateCrud<Casal, Long, CasalDAO> {
 	@Inject
 	private DiscipuloBC discipuloBC;
 	
-	public Casal obterCasal(Long id) {
+	@Inject
+	private UsuarioBC usuarioBC;
+	
+	public Casal obterCasal(Long id) {				
 		Homem marido = CDIFactory.getDiscipuloDAO().obterHomen(id);
 		Mulher esposa = CDIFactory.getDiscipuloDAO().obterMulher(id);
 		Casal casal = CDIFactory.getCasalDAO().load(id);
@@ -37,6 +41,11 @@ public class CasalBC extends DelegateCrud<Casal, Long, CasalDAO> {
 	}
 
 	public void inserirCasal(Casal casal) {
+		Usuario usuario = usuarioBC.obterUsuarioLogado();
+		
+	//	if(usuario.getPerfil().isPUB()){
+			casal.setUsuario(usuario);
+		//}
 		casal.setDataRegistro(Data.dataAtual());
 		CDIFactory.getCasalDAO().insert(casal);
 		CDIFactory.getCasalDAO().flushEntityManager();		

@@ -1,52 +1,35 @@
 package br.org.ovelha.acesso;
 
-import javax.enterprise.inject.Alternative;
+import javax.inject.Inject;
 
 import br.gov.frameworkdemoiselle.security.Authorizer;
+import br.org.ovelha.domain.Perfil;
 
-@Alternative
 public class Autorizacao implements Authorizer {
 
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private Credenciais credenciais;
 
 
 	@Override
 	public boolean hasRole(String role) throws Exception {
-		// TODO Auto-generated method stub
+		String perfil = credenciais.getPerfil().toString();
+		if (perfil.equals(role)){
+			return true;
+		}
 		return false;
 	}
 
 	@Override
 	public boolean hasPermission(String resource, String operation)
 			throws Exception {
-		// TODO Auto-generated method stub
+		String perfil = credenciais.getPerfil().toString();
+		if (perfil.equals(Perfil.ADM.getId().toString())){
+			return true;
+		}
 		return false;
 	}
 
-	/*
-	@Override
-	public boolean hasRole(String role) {
-		String usr = context.getUser().getId();
-		boolean authorized = false;
-
-		if (usr.equals("admin") && role.equals("administrators")) {
-			authorized = true;
-		}
-
-		return authorized;
-	}
-
-	@Override
-	public boolean hasPermission(Object res, String op) {
-		String usr = context.getUser().getId();
-		boolean authorized = false;
-
-		if (usr.equals("zyc") && res.equals("hello") && op.equals("say")) {
-			authorized = true;
-		} else if (context.hasRole("administrators")) {
-			authorized = true;
-		}
-
-		return authorized;
-	}*/
 }

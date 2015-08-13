@@ -11,12 +11,15 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 @SequenceGenerator(name = "seqCasal", sequenceName = "idCasal_seq", allocationSize = 1)
 @Entity
@@ -48,6 +51,11 @@ public class Casal implements EntidadeIf {
 	
 	@Column(columnDefinition="boolean default false")
 	private boolean encontroCasais;
+	
+    @OneToOne 
+    @JoinColumn(name="idUsuario")
+    private Usuario usuario;
+    
 
 	@Transient
 	private Homem marido = new Homem();
@@ -147,6 +155,14 @@ public class Casal implements EntidadeIf {
 	 */
 	public void setId(Long id) {
 		this.idCasal = id;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 

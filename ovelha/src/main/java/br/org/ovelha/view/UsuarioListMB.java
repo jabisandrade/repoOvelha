@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import br.gov.frameworkdemoiselle.annotation.NextView;
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
+import br.gov.frameworkdemoiselle.security.RequiredPermission;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractListPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
@@ -17,6 +18,7 @@ import br.org.ovelha.domain.Usuario;
 @ViewController
 @NextView(PAGES.USUARIO_EDIT)
 @PreviousView(PAGES.USUARIO_LIST)
+@RequiredPermission(resource="usuario" , operation="listar")
 public class UsuarioListMB extends AbstractListPageBean<Usuario, Long> {
 
 	private static final long serialVersionUID = 1L;

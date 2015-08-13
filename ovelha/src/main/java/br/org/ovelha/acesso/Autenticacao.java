@@ -11,6 +11,7 @@ import br.gov.frameworkdemoiselle.security.InvalidCredentialsException;
 import br.gov.frameworkdemoiselle.util.Locales;
 import br.org.ovelha.business.UsuarioBC;
 import br.org.ovelha.constant.CONFIG;
+import br.org.ovelha.domain.Perfil;
 import br.org.ovelha.domain.Usuario;
 import br.org.ovelha.util.Cripto;
 
@@ -36,13 +37,19 @@ public class Autenticacao implements Authenticator {
 			throw new InvalidCredentialsException();
 		}
 		fc.getExternalContext().getSessionMap().put("logado", "true");
+		fc.getExternalContext().getSessionMap().put("usuarioid", credenciais.getIdUsuario());
+		fc.getExternalContext().getSessionMap().put("usuario", credenciais.getUsername());
+		fc.getExternalContext().getSessionMap().put("perfil", credenciais.getPerfil());
 		locales.setCurrentLocale("pt");
-		System.out.println("Usuário autenticado com sucesso.");
+		System.out.println("Usuário: "+credenciais.getUsername()+", Perfil: "+Perfil.get(credenciais.getPerfil())+" autenticado com sucesso.");
 	}
 
 	@Override
 	public void unauthenticate() throws Exception {		
 		fc.getExternalContext().getSessionMap().remove("logado");
+		fc.getExternalContext().getSessionMap().remove("usuarioid");
+		fc.getExternalContext().getSessionMap().remove("usuario");
+		fc.getExternalContext().getSessionMap().remove("perfil");
 		HttpSession session = (HttpSession)fc.getExternalContext().getSession(false);     
 		session.invalidate();
 		credenciais.clear();
@@ -77,7 +84,9 @@ public class Autenticacao implements Authenticator {
 			Long idUsuario = usuarioBC.isUsuarioValido(new Usuario(credenciais));
 
 			if (idUsuario>0){
+				Usuario user = usuarioBC.load(idUsuario);
 				credenciais.setIdUsuario(idUsuario);
+				credenciais.setPerfil(user.getPerfil().getId());
 				credenciais.setLoggedIn(true);
 				return Boolean.TRUE;			
 			} else{

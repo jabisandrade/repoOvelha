@@ -6,6 +6,7 @@ import br.gov.frameworkdemoiselle.annotation.PreviousView;
 import br.gov.frameworkdemoiselle.message.DefaultMessage;
 import br.gov.frameworkdemoiselle.message.Message;
 import br.gov.frameworkdemoiselle.message.MessageContext;
+import br.gov.frameworkdemoiselle.security.RequiredPermission;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractEditPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
@@ -16,6 +17,7 @@ import br.org.ovelha.message.InfoMessages;
 
 @ViewController
 @PreviousView(PAGES.USUARIO_LIST)
+@RequiredPermission(resource="usuario" , operation="editar")
 public class UsuarioEditMB extends AbstractEditPageBean<Usuario, Long> {
 
 	private static final long serialVersionUID = 1L;

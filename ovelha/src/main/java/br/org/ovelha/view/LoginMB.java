@@ -1,5 +1,6 @@
 package br.org.ovelha.view;
 
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import br.gov.frameworkdemoiselle.annotation.NextView;
@@ -10,6 +11,7 @@ import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractPageBean;
 import br.org.ovelha.acesso.Credenciais;
 import br.org.ovelha.constant.PAGES;
+import br.org.ovelha.domain.Perfil;
 
 @ViewController
 @NextView(PAGES.INICIAL)
@@ -26,8 +28,10 @@ public class LoginMB extends AbstractPageBean {
 	@Inject
 	private Credenciais credenciais;
 	
+	private boolean ADM;
+	
 	public void login(){
-		try{
+		try{			
 			context.login();
 			messageContext.add("Usuário autenticado com sucesso!");
 		}catch(InvalidCredentialsException exception){
@@ -47,6 +51,20 @@ public class LoginMB extends AbstractPageBean {
 	public void setCredenciais(Credenciais credenciais) {
 		this.credenciais = credenciais;
 	}
+
+	public boolean isADM() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		String perfil = fc.getExternalContext().getSessionMap().get("perfil").toString();
+		if (perfil.equals(Perfil.ADM.getId().toString())){
+			this.ADM = true;
+		}else{
+			this.ADM = false;
+		}
+		return ADM;
+	}
+
+
+
 
 
 }

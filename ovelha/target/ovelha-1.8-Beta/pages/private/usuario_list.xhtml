@@ -46,7 +46,7 @@
 				
 				<p:column style="width:8%;" sortBy="#{bean.login}">
 					<f:facet name="header">Perfil</f:facet>
-					<h:outputText value="Administrador" />
+					<h:outputText value="#{bean.perfil.descricao}" />
 				</p:column>
 
 			</p:dataTable>

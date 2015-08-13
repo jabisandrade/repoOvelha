@@ -1,5 +1,7 @@
 package br.org.ovelha.business;
 
+import javax.faces.context.FacesContext;
+
 import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
 import br.org.ovelha.domain.Usuario;
@@ -45,8 +47,14 @@ public class UsuarioBC extends DelegateCrud<Usuario, Long, UsuarioDAO> {
 			
 			
 		}catch(Exception e){
-			return "Ocorreu um erro ao atualizar a senha. Tente mais tardes!";			
+			return "Ocorreu um erro ao atualizar a senha. Tente mais tarde!";			
 		}			
+	}
+	
+	public Usuario obterUsuarioLogado() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		String id = fc.getExternalContext().getSessionMap().get("usuarioid").toString();		
+		return this.load(Long.parseLong(id));		
 	}
 
 

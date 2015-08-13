@@ -29,5 +29,5 @@ public class UsuarioDAO extends AbstractDAO<Usuario, Long> {
 			return usuario.getIdUsuario();	
 		}		
 	}
-	
+		
 }
