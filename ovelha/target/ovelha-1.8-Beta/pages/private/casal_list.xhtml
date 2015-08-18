@@ -11,7 +11,7 @@
 				<p:toolbarGroup align="left">
 					<p:commandButton title="#{messages['botao.novo']}"
 						icon="ui-icon-document" action="#{casalListMB.getNextView}"
-						actionListener="#{casalListMB.clear}" ajax="false" />
+						actionListener="#{casalListMB.clear}"  rendered="#{loginMB.ADM}" ajax="false" />
 
 					<p:commandButton title="#{messages['botao.excluir']}"
 						icon="ui-icon-trash" onclick="PF('confirmation').show();"

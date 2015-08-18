@@ -47,9 +47,19 @@ public class UsuarioPublicoEditMB extends AbstractEditPageBean<Usuario, Long> {
 		String resultado = this.bc.alterarSenha(getBean());
 		Message msg = new DefaultMessage(resultado);
 		messageContext.add(msg.getText());
-		return null;		
+		return getPreviousView();		
 
 	}
+	
+	@Transactional
+	public String recuperarSenha() {		
+		String resultado = this.bc.recuperarSenha(getBean());
+		Message msg = new DefaultMessage(resultado);
+		messageContext.add(msg.getText());
+		return getPreviousView();
+	}
+	
+	
 
 	@Override
 	protected Usuario handleLoad(Long id) {

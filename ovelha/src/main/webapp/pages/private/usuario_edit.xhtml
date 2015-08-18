@@ -37,12 +37,17 @@
 
 					<h:outputLabel value="Login: " for="login" styleClass="text-input" />
 					<h:inputText id="login" value="#{usuarioEditMB.bean.login}"
-						title="Nome do usuario" required="true" />
+						title="E-Mail Válido" maxlength="100"
+						validatorMessage="E-mail inválido">
+						<f:validateRegex
+							pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+					</h:inputText>
 					<p:message for="login" />
+
 					
 					<h:outputLabel value="Senha: " for="senha" styleClass="text-input" />
 					<h:inputSecret id="senha" value="#{usuarioEditMB.bean.senha}"
-						title="Senha do usuario" required="true" />
+						title="Senha do usuario" required="true" maxlength="8"/>
 					<p:message for="senha" />
 					
 					<h:outputLabel value="Perfil: " for="perfil" styleClass="text-input" />

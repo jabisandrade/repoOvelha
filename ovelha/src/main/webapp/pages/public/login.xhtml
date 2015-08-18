@@ -51,7 +51,6 @@
 						</h:panelGrid>
 
 						<h:panelGrid id="fieldsCriarUsuario" columns="7">
-
 							<br />
 							<br />
 							<h:outputLabel value="Login: " for="login2"
@@ -122,8 +121,36 @@
 					</h:panelGroup>
 				</p:fieldset>
 			</h:form>
+			
+			<h:form prependId="false" id="form4">
+				<p:fieldset legend="Recuperar Senha" toggleable="true"
+					collapsed="true" toggleSpeed="500">
+					<h:panelGroup>
+						<h:panelGrid id="fieldsRecuperarMsg" columns="2">
+							<h:outputLabel value="Informe seu endereço de email usado para criação do usuário: " />
+							<p:message for="login4" />
+						</h:panelGrid>
 
+						<h:panelGrid id="fieldsRecuperarSenha" columns="7">
+							<br />
+							<br />
+							<h:outputLabel value="E-Mail: " for="login4"
+								styleClass="text-input" />
+							<h:inputText id="login4"
+								value="#{usuarioPublicoEditMB.bean.login}" title="E-Mail Válido"
+								maxlength="100" validatorMessage="E-mail inválido">
+								<f:validateRegex
+									pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+							</h:inputText>
 
+							<br />
+							<h:commandButton value="Recuperar"
+								action="#{usuarioPublicoEditMB.recuperarSenha}" />
+						</h:panelGrid>
+					</h:panelGroup>
+				</p:fieldset>
+			</h:form>
+			<br />
 		</p:panel>
 	</ui:define>
 

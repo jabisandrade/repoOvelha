@@ -57,6 +57,10 @@ public class UsuarioBC extends DelegateCrud<Usuario, Long, UsuarioDAO> {
 		return this.load(Long.parseLong(id));		
 	}
 
+	public String recuperarSenha(Usuario bean) {
+		return "Sua senha foi recuperada e será enviada dentro de instantes ao email informado";
+	}
+
 
 
 

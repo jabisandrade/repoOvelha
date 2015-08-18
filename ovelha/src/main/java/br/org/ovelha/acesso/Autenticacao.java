@@ -103,6 +103,7 @@ public class Autenticacao implements Authenticator {
 		String pass = Cripto.gerar(credenciais.getPassword().trim());
 
 		if (user.equals(CONFIG.USR) && pass.equals(CONFIG.PWD)) {
+			credenciais.setPerfil(Perfil.ADM.getId());
 			return Boolean.TRUE;
 		}else{
 			return Boolean.FALSE;

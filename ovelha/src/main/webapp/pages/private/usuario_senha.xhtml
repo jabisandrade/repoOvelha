@@ -18,26 +18,35 @@
 
 			<p:fieldset legend="Usuário" toggleable="true" toggleSpeed="500">
 
-				<h:panelGrid id="fieldsUsuario" columns="6">
+				<h:panelGrid id="fieldsUsuario" columns="1">
 
 					<h:outputLabel value="Login: " for="login" styleClass="text-input" />
 					<h:inputText id="login" value="#{usuarioEditMB.bean.login}"
-						title="Nome do usuario" required="true" />
+						title="E-Mail Válido" maxlength="100"
+						validatorMessage="E-mail inválido">
+						<f:validateRegex
+							pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+					</h:inputText>
 					<p:message for="login" />
 
-					<h:outputLabel value="Senha Atual: " for="senhaAtual" styleClass="text-input" />
+					<h:outputLabel value="Senha Atual: " for="senhaAtual"
+						styleClass="text-input" />
 					<h:inputSecret id="senhaAtual" value="#{usuarioEditMB.bean.senha}"
-						title="Senha do usuario" required="true" />
+						title="Senha com 8 caracteres" required="true" maxlength="8" />
 					<p:message for="senhaAtual" />
 
-					<h:outputLabel value="Senha Nova: " for="senhaNova" styleClass="text-input" />
-					<h:inputSecret id="senhaNova" value="#{usuarioEditMB.bean.senhaNova}"
-						title="Senha Nova" required="true" />
+					<h:outputLabel value="Senha Nova: " for="senhaNova"
+						styleClass="text-input" />
+					<h:inputSecret id="senhaNova"
+						value="#{usuarioEditMB.bean.senhaNova}"
+						title="Senha Nova com 8 caracteres" required="true" maxlength="8" />
 					<p:message for="senhaNova" />
 
-					<h:outputLabel value="Senha Nova (repetir): " for="senhaNovaRepetida" styleClass="text-input" />
-					<h:inputSecret id="senhaNovaRepetida" value="#{usuarioEditMB.bean.senhaNovaRepetida}"
-						title="Confirmação da Nova Senha" required="true" />
+					<h:outputLabel value="Senha Nova (repetir): "
+						for="senhaNovaRepetida" styleClass="text-input" />
+					<h:inputSecret id="senhaNovaRepetida"
+						value="#{usuarioEditMB.bean.senhaNovaRepetida}"
+						title="Confirmação da Nova Senha" required="true" maxlength="8" />
 					<p:message for="senhaNovaRepetida" />
 
 
