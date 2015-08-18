@@ -5,7 +5,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	template="/pages/private/template/main.xhtml">
 	<ui:define name="body">
-		<h:form prependId="false">
+		<h:form prependId="false" id="form1">
 			<p:toolbar>
 				<p:toolbarGroup align="left">
 					<p:commandButton value="#{messages['botao.salvar']}"
@@ -22,7 +22,7 @@
 			<p:fieldset legend="Configurações de envio de email"
 				toggleable="true" toggleSpeed="500">
 
-				<h:panelGrid id="fieldsConfigEmail" columns="6">
+				<h:panelGrid id="fieldsConfigEmail" columns="8">
 
 					<h:outputLabel value="Servidor SMTP: " for="servidor"
 						styleClass="text-input" />
@@ -38,12 +38,13 @@
 						required="true" />
 					<p:message for="porta" />
 
-					<h:outputLabel value="Email da conta: " for="email"
-						styleClass="text-input" />
+					<h:outputLabel value="Email da conta: " for="email" />
 					<h:inputText id="email" value="#{emailEditMB.bean.usuario}"
 						title="Email da conta criada no provedor que será usada para o envio de emails"
-						required="true" />
-					<p:message for="email" />
+						maxlength="100" validatorMessage="E-mail inválido">
+						<f:validateRegex
+							pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+					</h:inputText>
 
 					<h:outputLabel value="Senha da conta: " for="senha"
 						styleClass="text-input" />
@@ -54,10 +55,11 @@
 
 					<h:outputLabel value="Destinatário(s) Default: " for="defaultDest"
 						styleClass="text-input" />
-					<h:inputText id="defaultDest" value="#{emailEditMB.bean.destinatario}"
+					<h:inputText id="defaultDest"
+						value="#{emailEditMB.bean.destinatario}"
 						title="Destinatario padrao para qual serão enviados emails do sistema"
 						required="true" />
-					<p:message for="defaultDest" />					
+					<p:message for="defaultDest" />
 
 				</h:panelGrid>
 			</p:fieldset>
@@ -99,36 +101,40 @@
 
 			</p:fieldset>
 			<br />
+		</h:form>
+
+		<h:form prependId="false" id="form2">
+
 			<p:fieldset legend="Teste de Envio" toggleable="true"
 				toggleSpeed="500">
 
 				<h:panelGrid id="panelTeste" columns="1">
+
 					<h:outputLabel value="Email(s) do(s)  destinatario(s): "
-						for="destinatario" styleClass="text-input" />
+						for="destinatario" />
 					<h:inputText id="destinatario"
 						value="#{emailEditMB.bean.destinatario}"
-						title="Emails dos destinatarios. Caso houverem mais de um, separar por virgulas"/>
-					<p:message for="destinatario" />
+						title="Emails dos destinatarios. Caso houverem mais de um, separar por virgulas"
+						maxlength="500" validatorMessage="E-mail inválido">
+						<f:validateRegex
+							pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+					</h:inputText>
 
 					<h:outputLabel value="Assunto: " for="assunto"
 						styleClass="text-input" />
 					<h:inputText id="assunto" value="#{emailEditMB.bean.assunto}"
-						title="Assunto do email"  />
+						title="Assunto do email" />
 					<p:message for="assunto" />
 
 					<h:outputLabel value="Conteudo da Mensagem: " for="mensagem"
 						styleClass="text-input" />
 					<h:inputTextarea id="mensagem" value="#{emailEditMB.bean.conteudo}"
-						title="Conteudo da mensagem"  />
+						title="Conteudo da mensagem" />
 					<p:message for="mensagem" />
 
 					<p:commandButton value="Enviar" action="#{emailEditMB.enviarEmail}"
 						ajax="false" />
 				</h:panelGrid>
-
-
-
-
 			</p:fieldset>
 		</h:form>
 	</ui:define>

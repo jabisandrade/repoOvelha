@@ -29,5 +29,18 @@ public class UsuarioDAO extends AbstractDAO<Usuario, Long> {
 			return usuario.getIdUsuario();	
 		}		
 	}
+
+	public Usuario obterSenhaUsuario(String login) {
+
+		StringBuilder jpql = new StringBuilder();
+		HashMap<String, Object> parametros = new HashMap<String, Object>();
+
+		jpql.append(" select usuario from Usuario usuario");	
+		jpql.append(" where usuario.login = :login");
+
+		parametros.put("login", login);		
+		return executeSingleResultQuery(jpql.toString(), parametros);
+
+	}
 		
 }
