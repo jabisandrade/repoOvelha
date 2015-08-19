@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Built-By: 80114504504
 Build-Jdk: 1.7.0_51
 Implementation-Title: 
-Implementation-Version: 1.8-Beta
+Implementation-Version: 2.0-Beta
 Implementation-Vendor-Id: br.org.ovelha
 Implementation-Vendor: SERPRO - Serviço Federal de Processamento de D
  ados

@@ -11,7 +11,7 @@
 					<p:commandButton value="#{messages['botao.salvar']}"
 						action="#{emailEditMB.insert}"
 						rendered="#{!emailEditMB.updateMode}" ajax="false" />
-					<p:commandButton value="#{messages['botao.salvar']}"
+					<p:commandButton value="#{messages['botao.atualizar']}"
 						action="#{emailEditMB.update}"
 						rendered="#{emailEditMB.updateMode}" ajax="false" />
 				</p:toolbarGroup>
@@ -105,7 +105,7 @@
 
 		<h:form prependId="false" id="form2">
 
-			<p:fieldset legend="Teste de Envio" toggleable="true"
+			<p:fieldset legend="Envio de Email pelo sistema" toggleable="true"
 				toggleSpeed="500">
 
 				<h:panelGrid id="panelTeste" columns="1">
@@ -113,23 +113,23 @@
 					<h:outputLabel value="Email(s) do(s)  destinatario(s): "
 						for="destinatario" />
 					<h:inputText id="destinatario"
-						value="#{emailEditMB.bean.destinatario}"
+						value="#{emailEditMB.emailTesteDestinatario}"
 						title="Emails dos destinatarios. Caso houverem mais de um, separar por virgulas"
-						maxlength="500" validatorMessage="E-mail inválido">
+						maxlength="500" validatorMessage="E-mail inválido" size="60">
 						<f:validateRegex
 							pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
 					</h:inputText>
 
 					<h:outputLabel value="Assunto: " for="assunto"
 						styleClass="text-input" />
-					<h:inputText id="assunto" value="#{emailEditMB.bean.assunto}"
-						title="Assunto do email" />
+					<h:inputText id="assunto" value="#{emailEditMB.emailTesteAssunto}"
+						title="Assunto do email" size="60" />
 					<p:message for="assunto" />
 
 					<h:outputLabel value="Conteudo da Mensagem: " for="mensagem"
 						styleClass="text-input" />
-					<h:inputTextarea id="mensagem" value="#{emailEditMB.bean.conteudo}"
-						title="Conteudo da mensagem" />
+					<h:inputTextarea id="mensagem" value="#{emailEditMB.emailTesteConteudo}"
+						title="Conteudo da mensagem" cols="59" />
 					<p:message for="mensagem" />
 
 					<p:commandButton value="Enviar" action="#{emailEditMB.enviarEmail}"

@@ -22,7 +22,8 @@ public class EmailBC extends DelegateCrud<MensagemEletronica, Long, EmailDAO> {
 	}
 	
 	public MensagemEletronica newMensagemEletronica(){
-		return this.load(1L);
+		MensagemEletronica mensagemEletronica = this.load(1L); 
+		return mensagemEletronica;
 	}
 
 

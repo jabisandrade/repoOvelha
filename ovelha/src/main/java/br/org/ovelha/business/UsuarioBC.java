@@ -68,7 +68,7 @@ public class UsuarioBC extends DelegateCrud<Usuario, Long, UsuarioDAO> {
 		try{
 			Usuario usuario = CDIFactory.getUsuarioDAO().obterSenhaUsuario(bean.getLogin());
 			MensagemEletronica email = emailBC.newMensagemEletronica();
-			email.setDestinatario(bean.getLogin());
+			email.setDestinatario(usuario.getLogin());
 			email.setAssunto("Recuperação de senha de usuário em ("+Data.dataExtenso()+")");
 
 			StringBuilder conteudo = new StringBuilder();

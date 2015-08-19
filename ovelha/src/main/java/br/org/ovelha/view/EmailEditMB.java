@@ -27,12 +27,19 @@ public class EmailEditMB extends AbstractEditPageBean<MensagemEletronica, Long> 
 	@Inject
 	private MessageContext messageContext;
 	
-	private boolean updateMode;	
+	private boolean updateMode;
+	
+	private String emailTesteAssunto;
+	
+	private String emailTesteDestinatario;
+	
+	private String emailTesteConteudo;
+	
 	
 	
 	@PostConstruct
 	public void init(){
-		MensagemEletronica bean = bc.load(1L);
+		MensagemEletronica bean = bc.newMensagemEletronica();
 		if(bean!=null){
 			this.updateMode = Boolean.TRUE;
 			setBean(bean);	
@@ -70,7 +77,12 @@ public class EmailEditMB extends AbstractEditPageBean<MensagemEletronica, Long> 
 	}
 	
 	public String enviarEmail(){
-		this.bc.enviarEmail(getBean());	
+		this.updateMode =  Boolean.FALSE;
+		MensagemEletronica mensagem = getBean();
+		mensagem.setAssunto(getEmailTesteAssunto());
+		mensagem.setDestinatario(getEmailTesteDestinatario());
+		mensagem.setConteudo(getEmailTesteConteudo());
+		this.bc.enviarEmail(mensagem);	
 		messageContext.add("Solicitação para encaminhamento de email realizado. Favor confirmar na caixa de entrada do endereço do destinatário");
 		return null;
 
@@ -87,6 +99,30 @@ public boolean isUpdateMode(){
  */
 public void setUpdateMode(boolean updateMode) {
 	this.updateMode = updateMode;
+}
+
+public String getEmailTesteAssunto() {
+	return emailTesteAssunto;
+}
+
+public void setEmailTesteAssunto(String emailTesteAssunto) {
+	this.emailTesteAssunto = emailTesteAssunto;
+}
+
+public String getEmailTesteDestinatario() {
+	return emailTesteDestinatario;
+}
+
+public void setEmailTesteDestinatario(String emailTesteDestinatario) {
+	this.emailTesteDestinatario = emailTesteDestinatario;
+}
+
+public String getEmailTesteConteudo() {
+	return emailTesteConteudo;
+}
+
+public void setEmailTesteConteudo(String emailTesteConteudo) {
+	this.emailTesteConteudo = emailTesteConteudo;
 }
 
 
