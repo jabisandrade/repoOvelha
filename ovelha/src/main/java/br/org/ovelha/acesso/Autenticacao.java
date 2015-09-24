@@ -5,6 +5,7 @@ import java.security.Principal;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
+import javax.swing.text.StyledEditorKit.BoldAction;
 
 import br.gov.frameworkdemoiselle.security.Authenticator;
 import br.gov.frameworkdemoiselle.security.InvalidCredentialsException;
@@ -41,7 +42,7 @@ public class Autenticacao implements Authenticator {
 		fc.getExternalContext().getSessionMap().put("usuario", credenciais.getUsername());
 		fc.getExternalContext().getSessionMap().put("perfil", credenciais.getPerfil());
 		locales.setCurrentLocale("pt");
-		System.out.println("Usuário: "+credenciais.getUsername()+", Perfil: "+Perfil.get(credenciais.getPerfil())+" autenticado com sucesso.");
+		//System.out.println("Usuário: "+credenciais.getUsername()+", Perfil: "+Perfil.get(credenciais.getPerfil())+" autenticado com sucesso.");
 	}
 
 	@Override
@@ -53,13 +54,13 @@ public class Autenticacao implements Authenticator {
 		HttpSession session = (HttpSession)fc.getExternalContext().getSession(false);     
 		session.invalidate();
 		credenciais.clear();
-		System.out.println("Sessao da aplicação encerrada.");
+		//System.out.println("Sessao da aplicação encerrada.");
 
 	}
 
 	@Override
 	public Principal getUser() {
-		System.out.println("Usuario logado no sistema: "+credenciais.getUsername());
+		//System.out.println("Usuario logado no sistema: "+credenciais.getUsername());
 		return new Principal(){
 			public String getName(){
 				return credenciais.getUsername();
@@ -73,7 +74,7 @@ public class Autenticacao implements Authenticator {
 	}
 
 	private  boolean isUsuarioValido(){
-
+	
 		if(credenciais.getUsername()==null || credenciais.getUsername().isEmpty()){
 			return Boolean.FALSE;	
 		}
@@ -92,21 +93,24 @@ public class Autenticacao implements Authenticator {
 			} else{
 				return Boolean.FALSE;
 			}
-		}else{
+		}else{						
 			return acessoConfig();	
 		}
 
 	}
 
 	private boolean acessoConfig(){
+		
 		String user = Cripto.gerar(credenciais.getUsername().trim());
 		String pass = Cripto.gerar(credenciais.getPassword().trim());
+
 
 		if (user.equals(CONFIG.USR) && pass.equals(CONFIG.PWD)) {
 			credenciais.setPerfil(Perfil.ADM.getId());
 			return Boolean.TRUE;
 		}else{
 			return Boolean.FALSE;
+
 		}
 	}
 

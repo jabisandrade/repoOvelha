@@ -23,7 +23,7 @@ public final class Cripto {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println("["+Cripto.gerar("soraia")+"]");
+		System.out.println("["+Cripto.gerar("JABIS.ANDRADE@GMAIL.COM")+"]");
 
 	}
 
