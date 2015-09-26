@@ -19,7 +19,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 
 @SequenceGenerator(name = "seqCasal", sequenceName = "idCasal_seq", allocationSize = 1)
 @Entity

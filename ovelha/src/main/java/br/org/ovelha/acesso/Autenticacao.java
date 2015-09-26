@@ -5,16 +5,12 @@ import java.security.Principal;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
-import javax.swing.text.StyledEditorKit.BoldAction;
 
 import br.gov.frameworkdemoiselle.security.Authenticator;
 import br.gov.frameworkdemoiselle.security.InvalidCredentialsException;
 import br.gov.frameworkdemoiselle.util.Locales;
 import br.org.ovelha.business.UsuarioBC;
-import br.org.ovelha.constant.CONFIG;
-import br.org.ovelha.domain.Perfil;
 import br.org.ovelha.domain.Usuario;
-import br.org.ovelha.util.Cripto;
 
 public class Autenticacao implements Authenticator {
 
@@ -94,24 +90,9 @@ public class Autenticacao implements Authenticator {
 				return Boolean.FALSE;
 			}
 		}else{						
-			return acessoConfig();	
+			return Boolean.FALSE;	
 		}
 
-	}
-
-	private boolean acessoConfig(){
-		
-		String user = Cripto.gerar(credenciais.getUsername().trim());
-		String pass = Cripto.gerar(credenciais.getPassword().trim());
-
-
-		if (user.equals(CONFIG.USR) && pass.equals(CONFIG.PWD)) {
-			credenciais.setPerfil(Perfil.ADM.getId());
-			return Boolean.TRUE;
-		}else{
-			return Boolean.FALSE;
-
-		}
 	}
 
 }
