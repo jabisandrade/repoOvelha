@@ -34,11 +34,11 @@ public class UsuarioBC extends DelegateCrud<Usuario, Long, UsuarioDAO> {
 			return "Todos os campos devem ser preenchidos corretamente. Por favor, revise os campos preenchidos e repita a operação.";	
 		}
 
-		if(!bean.getLogin().equals(usuarioLogado.getLogin())){
+		if(!bean.getLogin().equals(usuarioLogado.getLogin()) && usuarioLogado.getPerfil().isPUB()){
 			return "Por favor informe seu Login de usuário corretamente!";
 		}
 
-		if(!bean.getSenha().equals(usuarioLogado.getSenha())){
+		if(!bean.getSenha().equals(usuarioLogado.getSenha()) && usuarioLogado.getPerfil().isPUB()){
 			return "Sua senha não foi confirmada para este usuario! Por favor, revise os campos preenchidos e repita a operação.";
 		}
 
@@ -47,9 +47,20 @@ public class UsuarioBC extends DelegateCrud<Usuario, Long, UsuarioDAO> {
 		}
 
 		try{
-			usuarioLogado.setSenha(bean.getSenhaNova());		
-			this.update(usuarioLogado);
-			return "Senha alterada com sucesso!";
+			if(usuarioLogado.getPerfil().isPUB()){
+				usuarioLogado.setSenha(bean.getSenhaNova());		
+				this.update(usuarioLogado);
+				return "Senha alterada com sucesso!";				
+			}else{
+				Usuario usuario = CDIFactory.getUsuarioDAO().obterSenhaUsuario(bean.getLogin());
+				String retorno = "Usuário informado não pode ser localizado.";
+				if(usuario!=null){
+					usuario.setSenha(bean.getSenhaNova());
+					this.update(usuario);
+					retorno = "Senha alterada com sucesso para o usuario: "+bean.getLogin();									
+				}
+				return retorno;
+			}
 
 
 		}catch(Exception e){

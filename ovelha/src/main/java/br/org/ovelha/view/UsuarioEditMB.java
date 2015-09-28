@@ -17,7 +17,6 @@ import br.org.ovelha.message.InfoMessages;
 
 @ViewController
 @PreviousView(PAGES.USUARIO_LIST)
-@RequiredPermission(resource="usuario" , operation="editar")
 public class UsuarioEditMB extends AbstractEditPageBean<Usuario, Long> {
 
 	private static final long serialVersionUID = 1L;
@@ -30,6 +29,7 @@ public class UsuarioEditMB extends AbstractEditPageBean<Usuario, Long> {
 	
 	@Override
 	@Transactional
+	@RequiredPermission(resource="usuario" , operation="usuario_deletar")
 	public String delete() {
 		this.bc.delete(getId());
 		messageContext.add(InfoMessages.DELETE_OK.getText());				
@@ -38,6 +38,7 @@ public class UsuarioEditMB extends AbstractEditPageBean<Usuario, Long> {
 
 	@Override
 	@Transactional
+	@RequiredPermission(resource="usuario" , operation="usuario_inserir")
 	public String insert() {			
 		this.bc.insert(getBean());
 		messageContext.add(InfoMessages.INSERT_OK.getText());
@@ -46,6 +47,7 @@ public class UsuarioEditMB extends AbstractEditPageBean<Usuario, Long> {
 
 	@Override
 	@Transactional
+	@RequiredPermission(resource="usuario" , operation="usuario_alterar")
 	public String update() {
 		this.bc.update(getBean());
 		messageContext.add(InfoMessages.UPDATE_OK.getText());

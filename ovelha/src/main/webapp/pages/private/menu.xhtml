@@ -8,6 +8,7 @@
 		<p:menubar>
 			<p:menuitem value="Cadastrar" url="/pages/private/casal_edit.jsf" rendered="#{!loginMB.ADM and !loginMB.exibeAtualizar}" />
 			<p:menuitem value="Atualizar" url="/pages/private/casal_list.jsf" rendered="#{!loginMB.ADM and loginMB.exibeAtualizar}" />
+			<p:menuitem value="Alterar Senha" url="/pages/private/usuario_senha.jsf" rendered="#{!loginMB.ADM}"/>
 			<p:submenu label="Casais" rendered="#{loginMB.ADM}" >
 				<p:menuitem value="Incluir" url="/pages/private/casal_edit.jsf"  />
 				<p:menuitem value="Listar" url="/pages/private/casal_list.jsf" />

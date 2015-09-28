@@ -47,7 +47,12 @@ public class CDIFactory {
 	
 	public static Usuario getUsuarioLogado() {
 		Credenciais credenciais = Beans.getReference(Credenciais.class);
-		return getUsuarioDAO().load(credenciais.getIdUsuario());
+		if(credenciais.getIdUsuario()!=null && credenciais.getIdUsuario()>0){
+			return getUsuarioDAO().load(credenciais.getIdUsuario());	
+		}else{
+			return null;
+		}
+		
 	}
 	
 	public static CasalBC getCasalBC() {

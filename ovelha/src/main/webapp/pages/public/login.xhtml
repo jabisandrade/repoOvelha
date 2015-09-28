@@ -76,53 +76,8 @@
 				</p:fieldset>
 			</h:form>
 
-			<h:form prependId="false" id="form3">
-				<p:fieldset legend="Alterar Senha" toggleable="true"
-					collapsed="true" toggleSpeed="500">
-					<h:panelGroup>
-						<h:panelGrid id="fieldsAlterarSenhaMsg" columns="2">
-							<h:outputLabel value="Altere a senha para o seu usuário: " />
-							<p:message for="login3" />
-						</h:panelGrid>
-
-						<h:panelGrid id="fieldsAlterarSenha" columns="1">
-							<br />
-							<h:outputLabel value="Login: " for="login3"
-								styleClass="text-input" />
-							<h:inputText id="login3"
-								value="#{usuarioPublicoEditMB.bean.login}" title="E-Mail Válido"
-								maxlength="100" validatorMessage="E-mail inválido">
-								<f:validateRegex
-									pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-							</h:inputText>
-
-
-							<h:outputLabel value="Senha: " for="login3"
-								styleClass="text-input" />
-							<h:inputSecret id="senha3"
-								value="#{usuarioPublicoEditMB.bean.senha}"
-								title="Senha com 8 caracteres" required="true" maxlength="8" />
-								
-							<h:outputLabel value="Senha Nova: " for="login3"
-								styleClass="text-input" />
-							<h:inputSecret id="senha4"
-								value="#{usuarioPublicoEditMB.bean.senhaNova}"
-								title="Senha com 8 caracteres" required="true" maxlength="8" />		
-								
-							<h:outputLabel value="Senha Nova (repetir): " for="login3"
-								styleClass="text-input" />
-							<h:inputSecret id="senha5"
-								value="#{usuarioPublicoEditMB.bean.senhaNovaRepetida}"
-								title="Senha com 8 caracteres" required="true" maxlength="8" />															
-							<br />
-							<h:commandButton value="Alterar"
-								action="#{usuarioPublicoEditMB.alterarSenha}" />
-						</h:panelGrid>
-					</h:panelGroup>
-				</p:fieldset>
-			</h:form>
 			
-			<h:form prependId="false" id="form4">
+			<h:form prependId="false" id="form3">
 				<p:fieldset legend="Recuperar Senha" toggleable="true"
 					collapsed="true" toggleSpeed="500">
 					<h:panelGroup>
