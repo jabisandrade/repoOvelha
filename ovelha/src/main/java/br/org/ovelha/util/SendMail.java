@@ -28,7 +28,8 @@ public class SendMail {
 		this. mailSMTPServerPort = email.getPorta();
 		this.mailSMTPUserServer = email.getUsuario();
 		this.mailSMTPPasswordrServer = email.getSenha();
-		this.debug  = email.isDebug();
+		//this.debug  = email.isDebug();
+		this.debug  = false;
 		this.mailTo = email.getDestinatario();
 		this.mailSubject = email.getAssunto();
 		this.mailMessage = email.getConteudo();  		
@@ -52,7 +53,8 @@ public class SendMail {
 		//Cria um autenticador que sera usado a seguir
 		SimpleAuth auth = null;
 		auth = new SimpleAuth (mailSMTPUserServer,mailSMTPPasswordrServer);		
-		Session session = Session.getDefaultInstance(props, auth);
+		//Session session = Session.getDefaultInstance(props, auth);
+		Session session = Session.getInstance(props, auth);
 		session.setDebug(debug); 
 
 		//Objeto que contém a mensagem
