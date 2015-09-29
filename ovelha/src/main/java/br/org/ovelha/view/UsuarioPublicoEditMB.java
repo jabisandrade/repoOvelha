@@ -13,7 +13,6 @@ import br.org.ovelha.business.UsuarioBC;
 import br.org.ovelha.constant.PAGES;
 import br.org.ovelha.domain.Perfil;
 import br.org.ovelha.domain.Usuario;
-import br.org.ovelha.message.InfoMessages;
 
 @ViewController
 @PreviousView(PAGES.LOGIN)
@@ -27,20 +26,17 @@ public class UsuarioPublicoEditMB extends AbstractEditPageBean<Usuario, Long> {
 	@Inject
 	private MessageContext messageContext;
 	
-
-
 	@Override
 	@Transactional
 	public String insert() {
 		Usuario usuario = getBean();
 		usuario.setPerfil(Perfil.PUB);
-		this.bc.insert(getBean());
-		messageContext.add(InfoMessages.INSERT_OK.getText());
+		String resultado = this.bc.inserir(usuario);
+		Message msg = new DefaultMessage(resultado);
+		messageContext.add(msg.getText());
 		return getPreviousView();		
 	}
 
-
-	
 	
 	@Transactional
 	public String alterarSenha() {		
@@ -48,7 +44,6 @@ public class UsuarioPublicoEditMB extends AbstractEditPageBean<Usuario, Long> {
 		Message msg = new DefaultMessage(resultado);
 		messageContext.add(msg.getText());
 		return getPreviousView();		
-
 	}
 	
 	@Transactional
@@ -60,13 +55,10 @@ public class UsuarioPublicoEditMB extends AbstractEditPageBean<Usuario, Long> {
 	}
 	
 	
-
 	@Override
 	protected Usuario handleLoad(Long id) {
 		return this.bc.load(id);
 	}
-
-
 
 
 	@Override
@@ -74,8 +66,6 @@ public class UsuarioPublicoEditMB extends AbstractEditPageBean<Usuario, Long> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
 
 
 	@Override

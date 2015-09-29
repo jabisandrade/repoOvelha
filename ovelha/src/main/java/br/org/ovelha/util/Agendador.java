@@ -64,9 +64,12 @@ public class Agendador {
 			}
 			
 			conteudo.append("\n");
+			conteudo.append("Que o Senhor te abencoe.\n");
+			conteudo.append("\n");
 			conteudo.append("\n");
 			conteudo.append("Atenciosamente,\n");
-			conteudo.append("Sistema Ovelha");
+			conteudo.append("Sistema Ovelha \n");
+			conteudo.append("http://sistema-ovelha.rhcloud.com");
 			
 			email.setConteudo(conteudo.toString());	
 			

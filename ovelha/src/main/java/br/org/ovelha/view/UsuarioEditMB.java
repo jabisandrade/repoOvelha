@@ -39,9 +39,10 @@ public class UsuarioEditMB extends AbstractEditPageBean<Usuario, Long> {
 	@Override
 	@Transactional
 	@RequiredPermission(resource="usuario" , operation="usuario_inserir")
-	public String insert() {			
-		this.bc.insert(getBean());
-		messageContext.add(InfoMessages.INSERT_OK.getText());
+	public String insert() {
+		String resultado = this.bc.inserir(getBean());
+		Message msg = new DefaultMessage(resultado);
+		messageContext.add(msg.getText());
 		return getPreviousView();		
 	}
 
@@ -61,7 +62,6 @@ public class UsuarioEditMB extends AbstractEditPageBean<Usuario, Long> {
 		Message msg = new DefaultMessage(resultado);
 		messageContext.add(msg.getText());
 		return null;		
-
 	}
 
 	@Override

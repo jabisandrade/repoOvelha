@@ -10,6 +10,7 @@ import br.org.ovelha.domain.Usuario;
 import br.org.ovelha.persistence.UsuarioDAO;
 import br.org.ovelha.util.CDIFactory;
 import br.org.ovelha.util.Data;
+import br.org.ovelha.util.StringU;
 
 @BusinessController
 public class UsuarioBC extends DelegateCrud<Usuario, Long, UsuarioDAO> {
@@ -77,7 +78,9 @@ public class UsuarioBC extends DelegateCrud<Usuario, Long, UsuarioDAO> {
 	public String recuperarSenha(Usuario bean) {
 
 		try{
+			String senhaGerada = StringU.getSenhaAleatoria(8);
 			Usuario usuario = CDIFactory.getUsuarioDAO().obterSenhaUsuario(bean.getLogin());
+			usuario.setSenha(senhaGerada);
 			MensagemEletronica email = emailBC.newMensagemEletronica();
 			email.setDestinatario(usuario.getLogin());
 			email.setAssunto("Recuperação de senha de usuário em ("+Data.dataExtenso()+")");
@@ -85,28 +88,66 @@ public class UsuarioBC extends DelegateCrud<Usuario, Long, UsuarioDAO> {
 			StringBuilder conteudo = new StringBuilder();
 			conteudo.append("Prezado(a),\n");
 			conteudo.append("\n");
+			conteudo.append("Por medidas de segurança, uma nova senha foi gerada automaticamente pelo sistema.\n");
 			conteudo.append("Segue as informações referente ao seu usuario no sistema:\n");
 			conteudo.append("\n");
 			conteudo.append("	--------------------------------------------\n");
 			conteudo.append("	Login: "+usuario.getLogin()+"\n");
-			conteudo.append("	Senha: "+usuario.getSenha()+"\n");
+			conteudo.append("	Senha: "+senhaGerada+"\n");
 			conteudo.append("	--------------------------------------------\n");
 			conteudo.append("\n");
-			conteudo.append("Sugerimos que a senha seja alterada por outra e memorizada.\n");
+			conteudo.append("Sugerimos que a senha informada seja alterada por uma outra se sua preferência com até oito caracteres.\n");
+			conteudo.append("\n");
+			conteudo.append("Que o Senhor te abençoe.\n");
 			conteudo.append("\n");
 			conteudo.append("\n");
 			conteudo.append("Atenciosamente,\n");
-			conteudo.append("Sistema Ovelha");
-
+			conteudo.append("Sistema Ovelha \n");
+			conteudo.append("http://sistema-ovelha.rhcloud.com");
+			
 			email.setConteudo(conteudo.toString());					
-
+			this.update(usuario);
 			emailBC.enviarEmail(email);
-			return "Sua senha foi recuperada e será enviada dentro de instantes ao email informado.";
+			return "Uma nova senha foi gerada automaticamente e será enviada dentro de instantes ao email informado.";
 
 		}catch(Exception e){
 			return "Ocorreu um erro ao recuperar senha de usuario. Favor contatar o administrador do sistema.";
 
 		}
+	}
+
+	public String inserir(Usuario usuario) {
+		try {
+			MensagemEletronica email = emailBC.newMensagemEletronica();
+			email.setDestinatario(usuario.getLogin());
+			email.setAssunto("Criação de usuário no sistema em ("+Data.dataExtenso()+")");
+
+			StringBuilder conteudo = new StringBuilder();
+			conteudo.append("Prezado(a),\n");
+			conteudo.append("\n");
+			conteudo.append("Identificamos a criação para o usuário informado abaixo em nosso sistema:\n");
+			conteudo.append("\n");
+			conteudo.append("	--------------------------------------------\n");
+			conteudo.append("	Login: "+usuario.getLogin()+"\n");
+			conteudo.append("	--------------------------------------------\n");
+			conteudo.append("\n");
+			conteudo.append("Seja bem vindo, obrigado por se cadastrar.\n");
+			conteudo.append("\n");
+			conteudo.append("Que o Senhor te abencoe.\n");
+			conteudo.append("\n");
+			conteudo.append("\n");
+			conteudo.append("Atenciosamente,\n");
+			conteudo.append("Sistema Ovelha \n");
+			conteudo.append("http://sistema-ovelha.rhcloud.com");
+			
+			email.setConteudo(conteudo.toString());					
+			
+			this.insert(usuario);
+			emailBC.enviarEmail(email);
+			return "Usuário ["+usuario.getLogin()+"] criado com sucesso.";
+		} catch (Exception e) {
+			return "Usuário ["+usuario.getLogin()+"] não pôde ser criado. Certifique-se que é um email fornecido é valido ou entre em contato com o administrador do sistema.";
+		}		
 	}
 
 
