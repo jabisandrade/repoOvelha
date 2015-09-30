@@ -78,11 +78,16 @@ public class EmailEditMB extends AbstractEditPageBean<MensagemEletronica, Long> 
 	
 	public String enviarEmail(){
 		this.updateMode =  Boolean.FALSE;
-		MensagemEletronica mensagem = getBean();
+		MensagemEletronica mensagem = new MensagemEletronica();
+		mensagem.setServidor(getBean().getServidor());
+		mensagem.setPorta(getBean().getPorta());
+		mensagem.setUsuario(getBean().getUsuario());
+		mensagem.setSenha(getBean().getSenha()); 
 		mensagem.setAssunto(getEmailTesteAssunto());
 		mensagem.setDestinatario(getEmailTesteDestinatario());
-		mensagem.setConteudo(getEmailTesteConteudo());
-		this.bc.enviarEmail(mensagem);	
+		mensagem.setConteudo(getEmailTesteConteudo());		
+		this.bc.enviarEmail(mensagem);
+		mensagem = null;
 		messageContext.add("Solicitação para encaminhamento de email realizado. Favor confirmar na caixa de entrada do endereço do destinatário");
 		return null;
 
