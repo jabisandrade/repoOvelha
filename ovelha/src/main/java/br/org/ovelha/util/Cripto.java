@@ -17,15 +17,8 @@ public final class Cripto {
 			return hexString.toString();
 
 		} catch (Exception e){
-			System.out.println("Erro ao criptografar.");
 			return "";
 		}
 	}
 	
-	public static void main(String[] args) {
-		System.out.println("["+Cripto.gerar("JABIS.ANDRADE@GMAIL.COM")+"]");
-		System.out.println("["+StringU.getSenhaAleatoria(8)+"]");
-
-	}
-
 }

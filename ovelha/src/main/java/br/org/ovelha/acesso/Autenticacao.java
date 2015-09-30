@@ -38,7 +38,6 @@ public class Autenticacao implements Authenticator {
 		fc.getExternalContext().getSessionMap().put("usuario", credenciais.getUsername());
 		fc.getExternalContext().getSessionMap().put("perfil", credenciais.getPerfil());
 		locales.setCurrentLocale("pt");
-		//System.out.println("Usuário: "+credenciais.getUsername()+", Perfil: "+Perfil.get(credenciais.getPerfil())+" autenticado com sucesso.");
 	}
 
 	@Override
@@ -50,13 +49,10 @@ public class Autenticacao implements Authenticator {
 		HttpSession session = (HttpSession)fc.getExternalContext().getSession(false);     
 		session.invalidate();
 		credenciais.clear();
-		//System.out.println("Sessao da aplicação encerrada.");
-
 	}
 
 	@Override
 	public Principal getUser() {
-		//System.out.println("Usuario logado no sistema: "+credenciais.getUsername());
 		return new Principal(){
 			public String getName(){
 				return credenciais.getUsername();

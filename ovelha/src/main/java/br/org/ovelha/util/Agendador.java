@@ -79,7 +79,7 @@ public class Agendador {
 			
 			
 		}catch(Exception e){
-			System.out.println("Erro ao enviar email: "+e.getMessage());
+			e.printStackTrace();
 
 		}
 

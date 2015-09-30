@@ -16,8 +16,7 @@ public class EmailBC extends DelegateCrud<MensagemEletronica, Long, EmailDAO> {
 			SendMail sendMail = new SendMail(mail);
 			sendMail.send();
 		}catch(Exception e){
-			System.out.println("Erro ao enviar email: "+e.getMessage());
-
+			e.printStackTrace();
 		}
 	}
 	

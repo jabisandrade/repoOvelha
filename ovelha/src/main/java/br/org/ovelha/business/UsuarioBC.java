@@ -118,33 +118,39 @@ public class UsuarioBC extends DelegateCrud<Usuario, Long, UsuarioDAO> {
 
 	public String inserir(Usuario usuario) {
 		try {
-			MensagemEletronica email = emailBC.newMensagemEletronica();
-			email.setDestinatario(usuario.getLogin());
-			email.setAssunto("Criação de usuário no sistema em ("+Data.dataExtenso()+")");
+			Usuario usuarioPesquisado = CDIFactory.getUsuarioDAO().obterSenhaUsuario(usuario.getLogin());
+			
+			if (usuarioPesquisado == null){
+				MensagemEletronica email = emailBC.newMensagemEletronica();
+				email.setDestinatario(usuario.getLogin());
+				email.setAssunto("Criação de usuário no sistema em ("+Data.dataExtenso()+")");
 
-			StringBuilder conteudo = new StringBuilder();
-			conteudo.append("Prezado(a),\n");
-			conteudo.append("\n");
-			conteudo.append("Identificamos a criação para o usuário informado abaixo em nosso sistema:\n");
-			conteudo.append("\n");
-			conteudo.append("	--------------------------------------------\n");
-			conteudo.append("	Login: "+usuario.getLogin()+"\n");
-			conteudo.append("	--------------------------------------------\n");
-			conteudo.append("\n");
-			conteudo.append("Seja bem vindo, obrigado por se cadastrar.\n");
-			conteudo.append("\n");
-			conteudo.append("Que o Senhor te abencoe.\n");
-			conteudo.append("\n");
-			conteudo.append("\n");
-			conteudo.append("Atenciosamente,\n");
-			conteudo.append("Sistema Ovelha \n");
-			conteudo.append("http://sistema-ovelha.rhcloud.com");
-			
-			email.setConteudo(conteudo.toString());					
-			
-			this.insert(usuario);
-			emailBC.enviarEmail(email);
-			return "Usuário ["+usuario.getLogin()+"] criado com sucesso.";
+				StringBuilder conteudo = new StringBuilder();
+				conteudo.append("Prezado(a),\n");
+				conteudo.append("\n");
+				conteudo.append("Identificamos a criação para o usuário informado abaixo em nosso sistema:\n");
+				conteudo.append("\n");
+				conteudo.append("	--------------------------------------------\n");
+				conteudo.append("	Login: "+usuario.getLogin()+"\n");
+				conteudo.append("	--------------------------------------------\n");
+				conteudo.append("\n");
+				conteudo.append("Seja bem vindo, obrigado por se cadastrar.\n");
+				conteudo.append("\n");
+				conteudo.append("Que o Senhor te abencoe.\n");
+				conteudo.append("\n");
+				conteudo.append("\n");
+				conteudo.append("Atenciosamente,\n");
+				conteudo.append("Sistema Ovelha \n");
+				conteudo.append("http://sistema-ovelha.rhcloud.com");
+				
+				email.setConteudo(conteudo.toString());					
+				
+				this.insert(usuario);
+				emailBC.enviarEmail(email);
+				return "Usuário ["+usuario.getLogin()+"] criado com sucesso.";
+			}else{
+				return "Usuário ["+usuario.getLogin()+"] existente na base. Favor usar a funcionalidade [Recuperar Senha].";
+			}						
 		} catch (Exception e) {
 			return "Usuário ["+usuario.getLogin()+"] não pôde ser criado. Certifique-se que é um email fornecido é valido ou entre em contato com o administrador do sistema.";
 		}		
