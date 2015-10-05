@@ -23,16 +23,24 @@ public class SendMail {
 	private String mailMessage;
 	private boolean debug;
 		
-	public SendMail(MensagemEletronica email){
-		this.mailSMTPServer = email.getServidor();
-		this. mailSMTPServerPort = email.getPorta();
-		this.mailSMTPUserServer = email.getUsuario();
-		this.mailSMTPPasswordrServer = email.getSenha();
-		//this.debug  = email.isDebug();
+	/**
+	 * @param destinatarios
+	 * @param assunto
+	 * @param conteudo
+	 * @param config
+	 */
+	public SendMail(String destinatarios, String assunto, String conteudo, MensagemEletronica config){
+		
+		this.mailTo = destinatarios;
+		this.mailSubject = assunto;
+		this.mailMessage = conteudo;  		
+
+		//Config
+		this.mailSMTPServer = config.getServidor();
+		this.mailSMTPServerPort = config.getPorta();
+		this.mailSMTPUserServer = config.getUsuario();
+		this.mailSMTPPasswordrServer = config.getSenha();		
 		this.debug  = false;
-		this.mailTo = email.getDestinatario();
-		this.mailSubject = email.getAssunto();
-		this.mailMessage = email.getConteudo();  		
 		
 	}
 	
@@ -44,7 +52,7 @@ public class SendMail {
 		props.put("mail.smtp.host", mailSMTPServer); 
 		props.put("mail.smtp.auth", "true"); 
 		props.put("mail.smtp.user", mailSMTPUserServer); 
-		props.put("mail.debug", "true");
+		props.put("mail.debug", debug);
 		props.put("mail.smtp.port", mailSMTPServerPort); 
 		props.put("mail.smtp.socketFactory.port", mailSMTPServerPort); 
 		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");

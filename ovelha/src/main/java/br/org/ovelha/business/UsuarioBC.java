@@ -5,7 +5,6 @@ import javax.inject.Inject;
 
 import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
-import br.org.ovelha.domain.MensagemEletronica;
 import br.org.ovelha.domain.Usuario;
 import br.org.ovelha.persistence.UsuarioDAO;
 import br.org.ovelha.util.CDIFactory;
@@ -81,10 +80,9 @@ public class UsuarioBC extends DelegateCrud<Usuario, Long, UsuarioDAO> {
 			String senhaGerada = StringU.getSenhaAleatoria(8);
 			Usuario usuario = CDIFactory.getUsuarioDAO().obterSenhaUsuario(bean.getLogin());
 			usuario.setSenha(senhaGerada);
-			MensagemEletronica email = emailBC.newMensagemEletronica();
-			email.setDestinatario(usuario.getLogin());
-			email.setAssunto("Recuperação de senha de usuário em ("+Data.dataExtenso()+")");
-
+			String destinatario = usuario.getLogin();
+			String assunto = "Recuperação de senha de usuário em ("+Data.dataExtenso()+")";
+			
 			StringBuilder conteudo = new StringBuilder();
 			conteudo.append("Prezado(a),\n");
 			conteudo.append("\n");
@@ -104,10 +102,9 @@ public class UsuarioBC extends DelegateCrud<Usuario, Long, UsuarioDAO> {
 			conteudo.append("Atenciosamente,\n");
 			conteudo.append("Sistema Ovelha \n");
 			conteudo.append("http://sistema-ovelha.rhcloud.com");
-			
-			email.setConteudo(conteudo.toString());					
+										
 			this.update(usuario);
-			emailBC.enviarEmail(email);
+			emailBC.enviarEmail(destinatario, assunto, conteudo.toString());
 			return "Uma nova senha foi gerada automaticamente e será enviada dentro de instantes ao email informado.";
 
 		}catch(Exception e){
@@ -121,9 +118,8 @@ public class UsuarioBC extends DelegateCrud<Usuario, Long, UsuarioDAO> {
 			Usuario usuarioPesquisado = CDIFactory.getUsuarioDAO().obterSenhaUsuario(usuario.getLogin());
 			
 			if (usuarioPesquisado == null){
-				MensagemEletronica email = emailBC.newMensagemEletronica();
-				email.setDestinatario(usuario.getLogin());
-				email.setAssunto("Criação de usuário no sistema em ("+Data.dataExtenso()+")");
+				String destinatario = usuario.getLogin();
+				String assunto = "Criação de usuário no sistema em ("+Data.dataExtenso()+")";
 
 				StringBuilder conteudo = new StringBuilder();
 				conteudo.append("Prezado(a),\n");
@@ -143,10 +139,8 @@ public class UsuarioBC extends DelegateCrud<Usuario, Long, UsuarioDAO> {
 				conteudo.append("Sistema Ovelha \n");
 				conteudo.append("http://sistema-ovelha.rhcloud.com");
 				
-				email.setConteudo(conteudo.toString());					
-				
 				this.insert(usuario);
-				emailBC.enviarEmail(email);
+				emailBC.enviarEmail(destinatario, assunto, conteudo.toString());
 				return "Usuário ["+usuario.getLogin()+"] criado com sucesso.";
 			}else{
 				return "Usuário ["+usuario.getLogin()+"] existente na base. Favor usar a funcionalidade [Recuperar Senha].";

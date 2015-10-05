@@ -11,9 +11,9 @@ public class EmailBC extends DelegateCrud<MensagemEletronica, Long, EmailDAO> {
 
 	private static final long serialVersionUID = 1L;
 	
-	public void enviarEmail(MensagemEletronica mail){
+	public void enviarEmail(String destinatarios, String assunto, String conteudo){
 		try{			
-			SendMail sendMail = new SendMail(mail);
+			SendMail sendMail = new SendMail(destinatarios,assunto,conteudo, this.newMensagemEletronica());
 			sendMail.send();
 		}catch(Exception e){
 			e.printStackTrace();

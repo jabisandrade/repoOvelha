@@ -10,7 +10,6 @@ import br.org.ovelha.business.AgendaBC;
 import br.org.ovelha.business.DiscipuloBC;
 import br.org.ovelha.business.EmailBC;
 import br.org.ovelha.domain.Agenda;
-import br.org.ovelha.domain.MensagemEletronica;
 import br.org.ovelha.domain.dto.DatasComemorativas;
 
 
@@ -29,15 +28,13 @@ public class Agendador {
 	@Inject
 	AgendaBC agendaBC;
 
-	//@Schedule(minute = "*/1", hour = "*", persistent = false)
-	//@Schedule(dayOfWeek="Sun, Mon, Tue, Wed, Thu, Fri, Sat", hour="5", minute="30")
 	@Schedule(dayOfWeek="Mon", hour="5", minute="30")
 	public void enviarNotificacoesEventosSemanal() {
 
 		try{			
-			MensagemEletronica email = bc.newMensagemEletronica();
-			email.setAssunto("Lembrete dos próximos acontecimentos ("+Data.dataExtenso()+")");
-			
+			String destinatario = "jabis.andrade@gmail.com";
+			String assunto = "Lembrete dos próximos acontecimentos ("+Data.dataExtenso()+")";
+						
 			List<DatasComemorativas> datas = discipulosBC.obterDatasComemorativasMes();	
 								
 			StringBuilder conteudo = new StringBuilder();
@@ -70,14 +67,11 @@ public class Agendador {
 			conteudo.append("Atenciosamente,\n");
 			conteudo.append("Sistema Ovelha \n");
 			conteudo.append("http://sistema-ovelha.rhcloud.com");
-			
-			email.setConteudo(conteudo.toString());	
-			
+						
 			if((datas.size()>0) || (eventos.size()>0)){
-				bc.enviarEmail(email);	
+				bc.enviarEmail(destinatario, assunto, conteudo.toString());;	
 			}
-			
-			
+						
 		}catch(Exception e){
 			e.printStackTrace();
 

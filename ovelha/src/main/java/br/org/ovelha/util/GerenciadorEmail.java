@@ -24,12 +24,9 @@ public class GerenciadorEmail {
 	 * @param email
 	 * @throws AmbienteException
 	 */
-	public void enviar(MensagemEletronica email)  {
+	public void enviar(String destino, String assunto, String conteudo)  {
 		
 		String remetente = "sistema.ovelha@ovelha.org.br";
-		String destino = email.getDestinatario();
-		String assunto = email.getAssunto();
-		String conteudo  = email.getConteudo();
 		
 		// Chama o carteiro passando os parametros e pedindo para enviar
 		this.carteiro
@@ -41,14 +38,6 @@ public class GerenciadorEmail {
 		
 	}
 	
-	/**
-	 * Método que receber uma coleção de notificações e envia cada uma
-	 * @param notificacoes
-	 */
-	public void enviarMultiplos(Collection<MensagemEletronica> notificacoes){
-		for (MensagemEletronica email : notificacoes) {
-			enviar(email);			
-		}
-	}
+
 	
 }

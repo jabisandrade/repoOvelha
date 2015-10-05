@@ -20,16 +20,7 @@ public class MensagemEletronica implements EntidadeIf {
 
 	@Column
 	private String destinatario;	
-	
-	@Transient
-	private String assunto;
-	
-	@Transient
-	private String conteudo;
-	
-	@Transient
-	private boolean debug = false;
-	
+		
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqEmail")
 	@Column(name = "id")
@@ -62,18 +53,7 @@ public class MensagemEletronica implements EntidadeIf {
 	public void setDestinatario(String destinatario) {
 		this.destinatario = destinatario;
 	}
-	public String getAssunto() {
-		return assunto;
-	}
-	public void setAssunto(String assunto) {
-		this.assunto = assunto;
-	}
-	public String getConteudo() {
-		return conteudo;
-	}
-	public void setConteudo(String conteudo) {
-		this.conteudo = conteudo;
-	}
+
 
 	public String getServidor() {
 		return servidor;
@@ -114,14 +94,6 @@ public class MensagemEletronica implements EntidadeIf {
 
 	public void setDataAtualizacaoRegistro(Date dataAtualizacaoRegistro) {
 		this.dataAtualizacaoRegistro = dataAtualizacaoRegistro;
-	}
-
-	public boolean isDebug() {
-		return debug;
-	}
-
-	public void setDebug(boolean debug) {
-		this.debug = debug;
 	}
 
 	public Long getId() {
