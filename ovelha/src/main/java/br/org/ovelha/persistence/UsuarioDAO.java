@@ -1,9 +1,13 @@
 package br.org.ovelha.persistence;
 
+import java.util.Collection;
 import java.util.HashMap;
 
 import br.gov.frameworkdemoiselle.stereotype.PersistenceController;
+import br.org.ovelha.domain.Casal;
+import br.org.ovelha.domain.Perfil;
 import br.org.ovelha.domain.Usuario;
+import br.org.ovelha.util.Data;
 
 @PersistenceController
 public class UsuarioDAO extends AbstractDAO<Usuario, Long> {
@@ -42,5 +46,33 @@ public class UsuarioDAO extends AbstractDAO<Usuario, Long> {
 		return executeSingleResultQuery(jpql.toString(), parametros);
 
 	}
+	
+    public Collection<Usuario> obterUsuariosCriadosPendentes(){
+    	
+		StringBuilder jpql = new StringBuilder();
+		HashMap<String, Object> parametros = new HashMap<String, Object>();
+
+		jpql.append(" select u from Usuario u where u.idUsuario");		
+		jpql.append(" not in (");
+		jpql.append("   select u.idUsuario from Casal c inner join c.usuario u)");
+		jpql.append(" and u.perfil= :perfil");
+			
+		parametros.put("perfil", Perfil.PUB.getId());
+		
+
+		return executeQuery(jpql.toString(), parametros);  
+    }
+    
+    public Collection<Usuario> obterUsuariosADM(){
+    	
+		StringBuilder jpql = new StringBuilder();
+		HashMap<String, Object> parametros = new HashMap<String, Object>();
+
+		jpql.append(" select u from Usuario u where u.perfil= :perfil");		
+			
+		parametros.put("perfil", Perfil.ADM.getId());
+		
+		return executeQuery(jpql.toString(), parametros);  
+    }
 		
 }

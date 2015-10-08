@@ -115,6 +115,7 @@ public class UsuarioBC extends DelegateCrud<Usuario, Long, UsuarioDAO> {
 
 	public String inserir(Usuario usuario) {
 		try {
+								
 			Usuario usuarioPesquisado = CDIFactory.getUsuarioDAO().obterSenhaUsuario(usuario.getLogin());
 			
 			if (usuarioPesquisado == null){

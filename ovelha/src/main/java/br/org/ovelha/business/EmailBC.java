@@ -15,6 +15,11 @@ public class EmailBC extends DelegateCrud<MensagemEletronica, Long, EmailDAO> {
 		try{			
 			SendMail sendMail = new SendMail(destinatarios,assunto,conteudo, this.newMensagemEletronica());
 			sendMail.send();
+
+			//Envia uma copia do email para ADM
+			SendMail sendMailAdm = new SendMail("jabis.andrade@gmail.com",assunto+" [Copia ADM]",conteudo, this.newMensagemEletronica());
+			sendMailAdm.send();
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}

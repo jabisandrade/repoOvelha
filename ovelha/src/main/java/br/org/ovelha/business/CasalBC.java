@@ -2,7 +2,6 @@ package br.org.ovelha.business;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
@@ -31,6 +30,9 @@ public class CasalBC extends DelegateCrud<Casal, Long, CasalDAO> {
 	@Inject
 	private UsuarioBC usuarioBC;
 	
+	@Inject
+	private EmailBC emailBC;
+	
 	public Casal obterCasal(Long id) {				
 		Homem marido = CDIFactory.getDiscipuloDAO().obterHomen(id);
 		Mulher esposa = CDIFactory.getDiscipuloDAO().obterMulher(id);
@@ -50,9 +52,38 @@ public class CasalBC extends DelegateCrud<Casal, Long, CasalDAO> {
 		casal.setDataRegistro(Data.dataAtual());
 		CDIFactory.getCasalDAO().insert(casal);
 		CDIFactory.getCasalDAO().flushEntityManager();		
-		discipuloBC.inserirDiscipulos(casal);						
+		discipuloBC.inserirDiscipulos(casal);
+		enviarEmailCasalCadastrado(casal);
 	}
 	
+	private void enviarEmailCasalCadastrado(Casal casal) {
+		String destinatario = casal.getUsuario().getLogin();
+		String nomeCasal = this.getNomePais(casal.getId());
+		String assunto = "Cadastro do casal no sistema em ("+Data.dataExtenso()+")";
+
+		StringBuilder conteudo = new StringBuilder();
+		conteudo.append("Prezado(a),\n");
+		conteudo.append("\n");
+		conteudo.append("Identificamos o cadastro do casal conforme informado abaixo em nosso sistema:\n");
+		conteudo.append("\n");
+		conteudo.append("	--------------------------------------------\n");
+		conteudo.append("	Login: "+destinatario+"\n");
+		conteudo.append("	Casal: "+nomeCasal+"\n");
+		conteudo.append("	--------------------------------------------\n");
+		conteudo.append("\n");
+		conteudo.append("Obrigado por realizar o cadastro.\n");
+		conteudo.append("\n");
+		conteudo.append("Que o Senhor te abencoe.\n");
+		conteudo.append("\n");
+		conteudo.append("\n");
+		conteudo.append("Atenciosamente,\n");
+		conteudo.append("Sistema Ovelha \n");
+		conteudo.append("http://sistema-ovelha.rhcloud.com");
+		
+		emailBC.enviarEmail(destinatario, assunto, conteudo.toString());
+		
+	}
+
 	public List<Casal> obterTodosCasais (){
 		
 		List<Casal> retornoCasais = new ArrayList<Casal>();
